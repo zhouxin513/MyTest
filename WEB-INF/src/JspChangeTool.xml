@@ -7,7 +7,7 @@
 
     <package name="JspChangeTool" namespace="/" extends="default">
 
-        <action name="HelloWorld" class="com.bestskip.tool.converter.HelloWorld">
+        <action name="HelloWorld" class="HelloWorld" method="display">
             <result>/jsp/HelloWorld.jsp</result>
         </action>
 

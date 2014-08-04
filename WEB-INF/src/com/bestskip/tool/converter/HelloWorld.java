@@ -26,7 +26,7 @@ package com.bestskip.tool.converter;
  */
 public class HelloWorld extends ExampleSupport {
 
-    public String execute() throws Exception {
+    public String display() throws Exception {
         setMessage(getText(MESSAGE));
         return SUCCESS;
     }
