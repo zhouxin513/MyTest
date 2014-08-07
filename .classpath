@@ -7,50 +7,35 @@
 	<classpathentry kind="var" path="TOMCAT_HOME/lib/el-api.jar"/>
 	<classpathentry kind="var" path="TOMCAT_HOME/lib/annotations-api.jar"/>
 	<classpathentry kind="src" path="WEB-INF/src"/>
-	<classpathentry kind="lib" path="/Users/zhouxin513/Documents/workspace/JspConvertor のコピー/WEB-INF/lib/asm-3.3.jar"/>
-	<classpathentry kind="lib" path="/Users/zhouxin513/Documents/workspace/JspConvertor のコピー/WEB-INF/lib/asm-commons-3.3.jar"/>
-	<classpathentry kind="lib" path="/Users/zhouxin513/Documents/workspace/JspConvertor のコピー/WEB-INF/lib/asm-tree-3.3.jar"/>
-	<classpathentry kind="lib" path="/Users/zhouxin513/Documents/workspace/JspConvertor のコピー/WEB-INF/lib/commons-fileupload-1.3.1.jar"/>
-	<classpathentry kind="lib" path="/Users/zhouxin513/Documents/workspace/JspConvertor のコピー/WEB-INF/lib/commons-io-2.2.jar"/>
-	<classpathentry kind="lib" path="/Users/zhouxin513/Documents/workspace/JspConvertor のコピー/WEB-INF/lib/commons-lang3-3.1.jar"/>
-	<classpathentry kind="lib" path="/Users/zhouxin513/Documents/workspace/JspConvertor のコピー/WEB-INF/lib/commons-logging-1.1.3.jar"/>
-	<classpathentry kind="lib" path="/Users/zhouxin513/Documents/workspace/JspConvertor のコピー/WEB-INF/lib/freemarker-2.3.19.jar"/>
-	<classpathentry kind="lib" path="/Users/zhouxin513/Documents/workspace/JspConvertor のコピー/WEB-INF/lib/javassist-3.11.0.GA.jar"/>
-	<classpathentry kind="lib" path="/Users/zhouxin513/Documents/workspace/JspConvertor のコピー/WEB-INF/lib/log4j-1.2.17.jar"/>
-	<classpathentry kind="lib" path="/Users/zhouxin513/Documents/workspace/JspConvertor のコピー/WEB-INF/lib/ognl-3.0.6.jar"/>
-	<classpathentry kind="lib" path="/Users/zhouxin513/Documents/workspace/JspConvertor のコピー/WEB-INF/lib/struts2-core-2.3.16.3.jar"/>
-	<classpathentry kind="lib" path="/Users/zhouxin513/Documents/workspace/JspConvertor のコピー/WEB-INF/lib/xwork-core-2.3.16.3.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/activation-1.1.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/aopalliance-1.0.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/asm-3.3.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/asm-commons-3.3.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/asm-tree-3.3.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/cassandra-driver-core-2.0.0-rc2.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/commons-codec-1.6.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/commons-dbcp-1.4.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/commons-fileupload-1.3.1.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/commons-io-2.2.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/commons-lang3-3.1.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/commons-logging-1.1.3.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/freemarker-2.3.19.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/javassist-3.11.0.GA.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/log4j-1.2.17.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/ognl-3.0.6.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/struts2-core-2.3.16.3.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/xwork-core-2.3.16.3.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/activation-1.1.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/aopalliance-1.0.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/cassandra-driver-core-2.0.0-rc2.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/commons-codec-1.6.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/commons-dbcp-1.4.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/commons-pool-1.5.4.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/freemarker-2.3.19.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/guava-15.0.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/jackson-core-asl-1.9.13.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/jackson-mapper-asl-1.9.13.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/javassist-3.11.0.GA.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/javax.servlet-api-3.0.1.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/javax.servlet.jsp-api-2.2.1.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/log4j-1.2.17.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/mail-1.4.7.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/metrics-core-3.0.1.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/mybatis-3.2.3.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/mybatis-spring-1.2.1.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/mysql-connector-java-5.1.28.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/netty-3.7.0.Final.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/ognl-3.0.6.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/poi-3.10-FINAL.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/poi-ooxml-3.10-FINAL.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/poi-ooxml-schemas-3.10-FINAL.jar"/>
@@ -75,9 +60,14 @@
 	<classpathentry kind="lib" path="WEB-INF/lib/spring-web-3.2.6.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/spring-webmvc-3.2.6.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/stax-api-1.0.1.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/struts2-core-2.3.16.3.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/struts2-json-plugin-2.3.16.3.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/struts2-spring-plugin-2.3.16.3.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/xml-apis-1.0.b2.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/xmlbeans-2.3.0.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/xwork-core-2.3.16.3.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v7.0"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/imgscalr-lib-4.2.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/jsornorg.jar"/>
 	<classpathentry kind="output" path="WEB-INF/classes"/>
 </classpath>
