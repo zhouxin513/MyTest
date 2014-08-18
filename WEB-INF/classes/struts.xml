@@ -10,6 +10,8 @@
 <!--     add by ka 2014-08-07 -->
     <constant name="struts.objectFactory" value="spring" />
     
+    <constant name= "struts.multipart.maxSize" value="5242880" /><!-- file upload size limit   add by ka-->
+    
 
     <package name="default" namespace="/" extends="struts-default">
 

@@ -1,33 +1,18 @@
-﻿package com.bestskip.tool.converter;
+﻿package backup;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
-
-import com.datastax.driver.core.BoundStatement;
-import com.datastax.driver.core.Cluster;
-import com.datastax.driver.core.Session;
 import com.opensymphony.xwork2.ActionSupport;
 
 
-
-
-public class FileUploadAction extends ActionSupport {
+public class FileUploadAction_0814 extends ActionSupport {
 
 	/**
-	 *
+	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -43,121 +28,31 @@ public class FileUploadAction extends ActionSupport {
 	private String savePath;
 	private int chunk;
 	private int chunks;
+	
 	private String result;
-	
-	
-
 
 	public String upload() throws Exception {
-		
-		// test
-	    System.out.println("upload test: ");
-				
-		String filename = this.getName();
-		
-	    String dstPath = ServletActionContext.getServletContext().getRealPath(
+		String dstPath = ServletActionContext.getServletContext().getRealPath(
 				this.getSavePath())
-				+ "\\" + filename;
+				+ "\\" + this.getName();
 		File dstFile = new File(dstPath);
-		
-		// test
-		System.out.println("test: " + dstPath);
-		
-		// 同じファイル名が存在するかどうかをチェックする
+
+		// 文件已存在（上传了同名的文件）
 		if (chunk == 0 && dstFile.exists()) {
 			dstFile.delete();
 			dstFile = new File(dstPath);
 		}
-		
 
-		//　ファイルを保存する
 		saveUploadFile(this.upload, dstFile);
-
-		System.out.println("アップロードファイル名:" + uploadFileName + "   ファイル・タイプ：" + uploadContentType + " "
+		System.out.println("上传文件:" + uploadFileName + " 临时文件名：" + uploadContentType + " "
 				+ chunk + " " + chunks);
-
-
-		//　read file to database start
-		
-		
-		/*// connect to cassandra 
-		try {
-		Cluster cqlcluster = Cluster.builder()
-				.addContactPoint("localhost").withPort(9042).build();
-		System.out.printf("Connected to cluster");
-		com.datastax.driver.core.Metadata metadata = cqlcluster.getMetadata();
-		System.out.printf("Connected to cluster: %s\n",
-				metadata.getClusterName());
-
-		// sessionを作成
-		Session cqlsession = cqlcluster.connect();
-
-		// make insert query to insert weatherinfo data to
-		// weatherapi.weather colunm families
-		
-		StringBuilder cql_insert = new StringBuilder();
-		cql_insert = cql_insert
-				.append(" INSERT INTO jspconvertor.tm_jsp_convert_history (convert_id, jsp_name, line_no,")
-				.append("  level,)")
-				.append(" VALUES (uuid(), ?, ?, ?)");
-		
-		
-		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(this.upload),"UTF-8"));
-		// 最終行まで読み込む
-		String line = "";
-		int i = 0;
-		while ((line = br.readLine()) != null) {
-
-			i = i + 1;
-			System.out.println(line.toString());
-			
-			com.datastax.driver.core.PreparedStatement statement = cqlsession
-					.prepare(cql_insert.toString());
-			BoundStatement boundStatement = new BoundStatement(
-					statement);
-			
-			cqlsession.execute(boundStatement.bind(filename, i, line.toString()
-					)
-					);
-
-			if (i == 1) {
-				continue;
-			}
-		}
-		br.close();
-		cqlsession.close();
-		cqlcluster.close();	
-		} catch (Exception e) {
-			 e.printStackTrace();
-		}
-		*/
-		
-
-		//read file to database end
-
-
 		if (chunk == chunks - 1) {
 			// 完成一整个文件;
-			// test
-			System.out.println("chunk test: ");
-			
 		}
-		// test
-		
-		
-		
-		
-		
-		
-		
-				System.out.println("return success test: ");
-				System.out.println("*************************** ");
 		return SUCCESS;
 	}
-
+	
 	private void saveUploadFile(File src, File dst) {
-		// test
-		System.out.println("saveUploadFile test: ");
 		InputStream in = null;
 		OutputStream out = null;
 		try {
@@ -196,14 +91,12 @@ public class FileUploadAction extends ActionSupport {
 	}
 
 	public String submit() {
-		// test
-				System.out.println("submit test: ");
 		String filePath = ServletActionContext.getServletContext().getRealPath(
 				this.getSavePath());
-		System.out.println("ファイル保存パス： " + filePath);
-
+		System.out.println("保存文件路径： " + filePath);
+		
 		HttpServletRequest request = ServletActionContext.getRequest();
-
+		
 		result =  "";
 		int count = Integer.parseInt(request.getParameter("uploader_count"));
 		for (int i = 0; i < count; i++) {
@@ -212,16 +105,16 @@ public class FileUploadAction extends ActionSupport {
 			System.out.println(uploadFileName + " " + name);
 			try {
 				//do something with file;
-				result += uploadFileName + "導入完成. <br />";
+				result += uploadFileName + "导入完成. <br />";  
 			} catch(Exception e) {
-				result += uploadFileName + "導入失敗:" + e.getMessage() + ". <br />";
+				result += uploadFileName + "导入失败:" + e.getMessage() + ". <br />";
 				e.printStackTrace();
 			}
 		}
 		return SUCCESS;
 	}
 
-
+	
 	public void setId(int id) {
 		this.id = id;
 	}

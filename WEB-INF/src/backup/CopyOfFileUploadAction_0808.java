@@ -1,4 +1,4 @@
-package com.bestskip.tool.converter;
+package backup;
 
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -20,15 +20,27 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 
-public class FileUploadServlet extends HttpServlet {
+import com.opensymphony.xwork2.Action;
+
+
+
+
+
+public class CopyOfFileUploadAction_0808 extends ExampleSupport{ 
         
     /**
         * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
         * 
         */
-	@Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+	
+	
+	
+	
+	private HttpServletRequest request;
+	private HttpServletResponse response;
+
+	public String executeGet() {
+        try {
         //　 ファイルアップロード処理
     	if (request.getParameter("getfile") != null && !request.getParameter("getfile").isEmpty()) {
             File file = new File(request.getServletContext().getRealPath("/")+"upload/"+request.getParameter("getfile"));
@@ -90,21 +102,28 @@ public class FileUploadServlet extends HttpServlet {
                         }
                     }
             } // TODO: check and report success
-        } 
+        }         
         else {
             PrintWriter writer = response.getWriter();
             writer.write("call POST with multipart form data");
         }
-    }
-    
+        }catch (Exception e) {
+            e.printStackTrace();
+            addActionError(e.getMessage());
+            return "error";
+    	}
+        return "success";
+	}
+	
+	
     /**
-        * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+        * @throws IOException 
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
         * 
         */
     @SuppressWarnings("unchecked")
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    public String executePost()  {
+        try {
         if (!ServletFileUpload.isMultipartContent(request)) {
         	throw new IllegalArgumentException("Request is not multipart, please 'multipart/form-data' enctype for your form.");
         }
@@ -132,14 +151,24 @@ public class FileUploadServlet extends HttpServlet {
             }
         } catch (FileUploadException e) {
                 throw new RuntimeException(e);
+               
         } catch (Exception e) {
                 throw new RuntimeException(e);
+               
         } finally {
             writer.write(json.toString());
             writer.close();
         }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            addActionError(e.getMessage());
+            return "success";
+    	}
+        return "success";
 
-    }
+    } 
+       
 
     private String getMimeType(File file) {
         String mimetype = "";

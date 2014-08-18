@@ -11,17 +11,24 @@
             <result>/jsp/HelloWorld.jsp</result>
         </action>
         
-        <!-- start add by ka 20140807 -->
-        <action name="fileupload" class="FileUploadAction" method="executePost">
-           <result name="success">/jsp/FileUpload.jsp</result>
-           <result name="error">/jsp/Error.jsp</result>
-        </action>
-        <!-- end add by ka 20140807 -->
+        <!-- Plupload Queue Widget action start -->
 
+        <action name ="FileUpload" class ="FileUploadAction" method="upload">
+            <param name="savePath">/fileUpload</param> <!-- pass the file savepath param to the action -->
+            <result name ="success">/jsp/result.jsp</result> <!-- this result do nothing -->
+        </action >
+        <action name ="Submit" class ="FileUploadAction" method="submit">
+            <param name="savePath">/fileUupload</param> <!-- pass the file savepath param to the action -->
+            <result name ="success">/jsp/result.jsp</result>
+        </action >
+
+        <!-- Plupload Queue Widget action end -->
 
         <!-- Add actions here -->
-        
-       
+         
                 
     </package>
+    
+   
+
 </struts>

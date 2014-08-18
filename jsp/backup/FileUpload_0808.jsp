@@ -96,7 +96,7 @@
 				
 				<!-- The file upload form used as target for the file upload widget -->
 				
-				<s:form id="fileupload" action="fileupload" method="executePost" enctype="multipart/form-data">
+				<form id="fileupload" action="fileupload" method="executePost" enctype="multipart/form-data">
 					
 					<!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
 
@@ -141,7 +141,7 @@
 							data-target="#modal-gallery"></tbody>
 					</table>
 					
-				</s:form>
+				</form>
 				
 				<br>
 				<div class="well">

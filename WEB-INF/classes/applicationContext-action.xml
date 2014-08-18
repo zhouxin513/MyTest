@@ -16,11 +16,11 @@
  	<bean id="HelloWorld" class="com.bestskip.tool.converter.HelloWorld"
         scope="prototype">
     </bean>
-    
+            
+    <!-- action class for file upload -->
     <bean id="FileUploadAction" class="com.bestskip.tool.converter.FileUploadAction"
         scope="prototype">
     </bean>
-    
     
     
 </beans>

@@ -11,10 +11,12 @@ aaaaaaaa
 <br />
 <br />
 
+
 <form>
-ファイルアップロードテスト！ <br>
+JQuery Pluplord multiple file upload test by struts <br>
 ⇓<br>
-<input type="button" value="FileUploadTest" onclick="window.open('jsp/FileUpload.jsp','FileUploadWindow', 'width=600, height=600,scrollbars=yes')">
+<input type="button" value="upload_QueueWidget.jsp" onclick="window.open('jsp/upload_QueueWidget.jsp','FileUploadWindow', 'width=850, height=400,scrollbars=yes')">
+
 </form>
 
 </body>
