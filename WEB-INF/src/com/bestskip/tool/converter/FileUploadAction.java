@@ -234,24 +234,25 @@ public class FileUploadAction extends ActionSupport {
 
 	public String submit() {
 		// test
-				System.out.println("submit test: ");
+		System.out.println("submit test: ");
 		String filePath = ServletActionContext.getServletContext().getRealPath(
 				this.getSavePath());
 		System.out.println("ファイル保存パス： " + filePath);
 
 		HttpServletRequest request = ServletActionContext.getRequest();
 
-		result =  "";
+		result = "";
 		int count = Integer.parseInt(request.getParameter("uploader_count"));
 		for (int i = 0; i < count; i++) {
 			uploadFileName = request.getParameter("uploader_" + i + "_name");
 			name = request.getParameter("uploader_" + i + "_tmpname");
 			System.out.println(uploadFileName + " " + name);
 			try {
-				//do something with file;
+				// do something with file;
 				result += uploadFileName + "導入完成. <br />";
-			} catch(Exception e) {
-				result += uploadFileName + "導入失敗:" + e.getMessage() + ". <br />";
+			} catch (Exception e) {
+				result += uploadFileName + "導入失敗:" + e.getMessage()
+						+ ". <br />";
 				e.printStackTrace();
 			}
 		}
