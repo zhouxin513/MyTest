@@ -23,7 +23,7 @@ public class CassandraDAO {
 
 	private Cluster cluster;
 	private Session session;
-	private String node = "locahost";
+	private String node = "localhost";
 	private String dbName = "jspconvertor";
 	public static String TYPE_UUID = "UUID";
 	public static String TYPE_STRING = "TYPE_STRING";
@@ -73,7 +73,7 @@ public class CassandraDAO {
 		cluster.close();
 	}
 
-	public ResultSet execute(String CQL, ArrayList<CassandraObj> paramList)
+	/*public ResultSet execute(String CQL, ArrayList<CassandraObj> paramList)
 			throws ParseException {
 
 		RegularStatement toPrepare = (RegularStatement) new SimpleStatement(CQL)
@@ -105,7 +105,7 @@ public class CassandraDAO {
 			return session.execute(CQL);
 		}
 
-	}
+	}*/
 
 	
 	public ResultSet executeByObject(String CQL, ArrayList<Object> paramList)
@@ -178,7 +178,7 @@ public class CassandraDAO {
 	
 	
 	
-	
+	/*
 
 	public ResultSet selectAll(String CQL, ArrayList<CassandraObj> paramList)
 			throws ParseException {
@@ -213,5 +213,6 @@ public class CassandraDAO {
 		}
 
 	}
+*/
 
 }

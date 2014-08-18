@@ -10,15 +10,24 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
 
+
+
+import com.datastax.driver.core.BatchStatement;
 import com.datastax.driver.core.BoundStatement;
 import com.datastax.driver.core.Cluster;
+import com.datastax.driver.core.ConsistencyLevel;
+import com.datastax.driver.core.PreparedStatement;
+import com.datastax.driver.core.RegularStatement;
 import com.datastax.driver.core.Session;
+import com.datastax.driver.core.SimpleStatement;
 import com.opensymphony.xwork2.ActionSupport;
 
 
@@ -48,7 +57,7 @@ public class FileUploadAction extends ActionSupport {
 	
 
 
-	public String upload() throws Exception {
+	public String upload() {
 		
 		// test
 	    System.out.println("upload test: ");
@@ -61,14 +70,13 @@ public class FileUploadAction extends ActionSupport {
 		File dstFile = new File(dstPath);
 		
 		// test
-		System.out.println("test: " + dstPath);
+		System.out.println("ファイル名: " + dstPath);
 		
 		// 同じファイル名が存在するかどうかをチェックする
 		if (chunk == 0 && dstFile.exists()) {
 			dstFile.delete();
 			dstFile = new File(dstPath);
 		}
-		
 
 		//　ファイルを保存する
 		saveUploadFile(this.upload, dstFile);
@@ -78,80 +86,109 @@ public class FileUploadAction extends ActionSupport {
 
 
 		//　read file to database start
-		
-		
-		/*// connect to cassandra 
 		try {
-		Cluster cqlcluster = Cluster.builder()
-				.addContactPoint("localhost").withPort(9042).build();
-		System.out.printf("Connected to cluster");
-		com.datastax.driver.core.Metadata metadata = cqlcluster.getMetadata();
-		System.out.printf("Connected to cluster: %s\n",
-				metadata.getClusterName());
+						
+			/*
+			 * 普通のCassandraに接続方法（OK）
+			 * Cluster cqlcluster = Cluster.builder().addContactPoint("localhost")
+					.withPort(9042).build();
+			System.out.printf("Connected to cluster");
+			com.datastax.driver.core.Metadata metadata = cqlcluster
+					.getMetadata();
+			System.out.printf("Connected to cluster: %s\n",
+					metadata.getClusterName());
 
-		// sessionを作成
-		Session cqlsession = cqlcluster.connect();
-
-		// make insert query to insert weatherinfo data to
-		// weatherapi.weather colunm families
-		
-		StringBuilder cql_insert = new StringBuilder();
-		cql_insert = cql_insert
-				.append(" INSERT INTO jspconvertor.tm_jsp_convert_history (convert_id, jsp_name, line_no,")
-				.append("  level,)")
-				.append(" VALUES (uuid(), ?, ?, ?)");
-		
-		
-		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(this.upload),"UTF-8"));
-		// 最終行まで読み込む
-		String line = "";
-		int i = 0;
-		while ((line = br.readLine()) != null) {
-
-			i = i + 1;
-			System.out.println(line.toString());
+			// sessionを作成
+			Session cqlsession = cqlcluster.connect("jspconvertor");
 			
-			com.datastax.driver.core.PreparedStatement statement = cqlsession
-					.prepare(cql_insert.toString());
-			BoundStatement boundStatement = new BoundStatement(
-					statement);
+			StringBuilder cql_insert = new StringBuilder();
+			cql_insert = cql_insert
+					.append(" INSERT INTO jspconvertor.tm_jsp_convert_history (convert_id, jsp_name, line_no,")
+					.append("  line_contents)")
+					.append(" VALUES (uuid(), ?, ?, ?)");
 			
-			cqlsession.execute(boundStatement.bind(filename, i, line.toString()
-					)
-					);
+			PreparedStatement statement = cqlsession.prepare(cql_insert.toString());			
+			BoundStatement boundStatement = new BoundStatement(statement);	
+			
+			//　cqlコマンド実行する
+			cqlsession.execute(boundStatement.bind(filename, i,	line.toString()));		
+			普通のCassandraに接続方法　*/
 
-			if (i == 1) {
-				continue;
+			//　CassandraDAOの方法で
+			CassandraDAO cassandraDAO = new CassandraDAO();
+			
+			//　実行予定CQL文
+			StringBuilder cql_insert = new StringBuilder();
+			cql_insert = cql_insert
+					.append(" INSERT INTO jspconvertor.tm_jsp_convert_history (convert_id, jsp_name, line_no,")
+					.append("  line_contents)")
+					.append(" VALUES (uuid(), ?, ?, ?)");
+
+			System.out.println("実行予定CQL文：　" + cql_insert.toString());
+			
+			//　PreparedStatementを作成する
+			RegularStatement toPrepare = (RegularStatement) new SimpleStatement(cql_insert.toString())
+			.setConsistencyLevel(ConsistencyLevel.QUORUM);
+						
+	        PreparedStatement prepared = cassandraDAO.getSession().prepare(toPrepare);
+
+			//　アップロードしたファイルをBufferedReaderで読み取り
+	        BufferedReader br = new BufferedReader(new InputStreamReader(
+					new FileInputStream(this.upload), "UTF-8"));
+			// 最終行まで読み込む
+			String line = "";
+			int i = 0;
+			
+			while ((line = br.readLine()) != null) {
+
+				i = i + 1;
+				System.out.println(line.toString());
+				
+				// CQL文のパラメータを作成
+				ArrayList<Object> paramList = new ArrayList<Object>();
+				
+				paramList.add(filename);
+				paramList.add(i);
+				paramList.add(line.toString());
+				
+				BatchStatement batch = new BatchStatement();
+				Object[] inputObj = new Object[paramList.size()];
+				
+				for (int j = 0; j < paramList.size(); j++) {
+					inputObj[j] = paramList.get(j);
+				}
+				
+				batch.add(prepared.bind(inputObj));
+				
+				//　CQL文を実行する
+				cassandraDAO.getSession().execute(batch);
+
+				//　cqlsession.execute(boundStatement.bind(filename, i,	line.toString()));
+
+				if (i == 1) {
+					continue;
+				}
 			}
-		}
-		br.close();
-		cqlsession.close();
-		cqlcluster.close();	
+			br.close();
+			cassandraDAO.close();			
+			/*cqlsession.close();
+			cqlcluster.close();*/
 		} catch (Exception e) {
-			 e.printStackTrace();
+			e.printStackTrace();
 		}
-		*/
-		
 
-		//read file to database end
-
+		// read file to database end
 
 		if (chunk == chunks - 1) {
 			// 完成一整个文件;
 			// test
 			System.out.println("chunk test: ");
-			
+
 		}
 		// test
-		
-		
-		
-		
-		
-		
-		
-				System.out.println("return success test: ");
-				System.out.println("*************************** ");
+
+		System.out.println("return success test: ");
+		System.out.println("*************************** ");
 		return SUCCESS;
 	}
 
