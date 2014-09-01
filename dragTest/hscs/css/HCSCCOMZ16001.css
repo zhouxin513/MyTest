@@ -1,0 +1,63 @@
+body{
+	width:950px;
+	height:auto;
+}
+.main{
+	height:auto;
+}
+.center{
+	height: auto;
+}
+.container_password{
+	height:200px;
+}
+.container_children{
+	text-align: center;
+	width: 60%;
+}
+.login_name{
+	height:42px;
+	width:231px;
+	background:url(../img/name.jpg) no-repeat left top;
+	line-height:42px;
+	border:none;
+	padding:0 0 0 50px;
+}
+.login_password{
+	height:42px;
+	width:231px;
+	background:url(../img/password.jpg) no-repeat left top;
+	line-height:42px;
+	border:none;
+	padding:0 0 0 50px;
+}
+.layout_input{
+	height: 50px;
+	padding-left: 15px;
+	position: relative;
+}
+.hideText{
+	width: 200px;
+	z-index: 999;
+	position: absolute;
+	margin-top: 15px;
+	margin-left: 170px;
+	display: none;
+	color: #797979;
+	text-align: left;
+	font-size: 14px;
+}
+.showInput{
+	width: 350px;
+	z-index: 1
+}
+.infoText{
+	min-height: 70px;
+	margin-top: 10px;
+	border-top: 1px solid #D9D8D8;
+	padding: 8px 10px;
+	color: #797979;
+	font-size: 14px;
+	overflow: hidden;
+	height: auto;
+}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>HTML5 Drag&Drop</title>
+    <meta charset="utf-8"/>
+    <style>
+
+     * {
+         cursor: pointer !important;
+     }
+
+    .items {
+        position: absolute;
+        top: 0px;
+        height: 200px;
+        left: 0px;
+    }
+    .album {
+        border: 3px dashed #ccc;
+        float: left;
+        margin: 10px;
+        min-height: 100px;
+        padding: 10px;
+        width: 150px;
+
+    }
+
+    .dropbox {
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        left: 430px;
+        width: 595px;
+        border-radius: 6px;
+        background-color: rgb(33, 33, 33);
+
+       /* border: 3px dashed #ccc;
+        float: left;
+        margin: 10px;
+        min-height: 500px;
+        padding: 10px;*/
+
+    }
+
+    </style>
+    <script type="text/javascript" src="../js/jquery-1.8.2.min.js"></script>
+    <script>
+    function drag(ev){
+    ev.dataTransfer.setData("Text",ev.target.id);
+    }
+    </script>
+
+
+</head>
+
+<body>
+<!--<div id="drop-box" style="border: 1px solid; height: 100px; width: 100px;"></div>-->
+<div class="items">
+
+    <image src="img/childFace.gif" id="x1"/>
+    <br/>
+    <a href="http://api.jquery.com" >api jquery com</a>
+    <br/>
+    <h2>drag to to drop box</h2>
+    <img src="img/w3cSchool.bmp" />
+    <br />
+    <input type="button" onclick="window.parent.alertTest()" value="alertTest" />
+    <br />
+    input data<input type="text" id="nakanohito" />
+    <br/>
+    <div class="album">
+
+        <h2>album</h2>
+        <img src="img/w3cSchool.bmp"/><br />
+        <img src="img/w3cSchool.bmp"/><br />
+        <img src="img/w3cSchool.bmp"/><br />
+    </div>
+    <br/>
+</div>
+
+<br/>
+</body>
+</html>
+
+

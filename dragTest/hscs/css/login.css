@@ -1,0 +1,81 @@
+body{
+	width:950px;
+	height:auto;
+	margin: 0 auto;
+	background:#f9f9f9;
+	font-family: 'MS UI Gothic', 'ÇlÇr ÇoÉSÉVÉbÉN', Verdana, 'Hiragino Kaku Gothic Pro', 'Takao PÉSÉVÉbÉN', sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    color: #5b5b5b;
+}
+.main{
+	height:auto;
+}
+.center{
+	height: auto;
+}
+.container_password{
+	height:200px;
+	text-align: center;
+}
+.container_children{
+	text-align: center;
+}
+
+
+.login_name{
+	height:71px;
+	width:254px;
+	background:url(../img/name.png) no-repeat left top;
+	width: 350px;
+	z-index: 1;
+}
+.login_password{
+	height:71px;
+	width:254px;
+	background:url(../img/password.png) no-repeat left top;
+	width: 350px;
+	z-index: 1;
+	
+}
+.showInput{
+	height:25px;
+	width:234px;
+	line-height:25px;
+	margin-top: 22px;
+	background: none;
+	color: #636363;
+	border: none;
+}
+.showInput:FOCUS{
+	outline:none;
+}
+
+
+.layout_input{
+	height: 71px;
+	padding-left: 5px;
+	position: relative;
+}
+.hideText{
+	width: 200px;
+	z-index: 999;
+	position: absolute;
+	margin-top: 28px;
+	margin-left: 170px;
+	display: none;
+	color: #797979;
+	text-align: left;
+	font-size: 14px;
+	width: auto;
+}
+.infoText{
+	min-height: 70px;
+	margin-top: 10px;
+	border-top: 1px solid #D9D8D8;
+	padding: 8px 10px;
+	color: #797979;
+	font-size: 14px;
+	overflow: hidden;
+	height: auto;
+}
