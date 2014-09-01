@@ -10,23 +10,25 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.connector.Request;
 import org.apache.struts2.ServletActionContext;
 
 
 
+
+
+
 import com.datastax.driver.core.BatchStatement;
-import com.datastax.driver.core.BoundStatement;
-import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.ConsistencyLevel;
 import com.datastax.driver.core.PreparedStatement;
 import com.datastax.driver.core.RegularStatement;
-import com.datastax.driver.core.Session;
 import com.datastax.driver.core.SimpleStatement;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -67,10 +69,15 @@ public class FileUploadAction extends ActionSupport {
 	    String dstPath = ServletActionContext.getServletContext().getRealPath(
 				this.getSavePath())
 				+ "\\" + filename;
+	    
+	    
+	    
 		File dstFile = new File(dstPath);
 		
+		
 		// test
-		System.out.println("ファイル名: " + dstPath);
+		System.out.println("ファイル名: " + dstPath );
+		
 		
 		// 同じファイル名が存在するかどうかをチェックする
 		if (chunk == 0 && dstFile.exists()) {
@@ -78,17 +85,17 @@ public class FileUploadAction extends ActionSupport {
 			dstFile = new File(dstPath);
 		}
 
-		//　ファイルを保存する
+		//　ファイル書き込み（保存）メッソドを呼び出し
 		saveUploadFile(this.upload, dstFile);
 
 		System.out.println("アップロードファイル名:" + uploadFileName + "   ファイル・タイプ：" + uploadContentType + " "
 				+ chunk + " " + chunks);
 
 
-		//　read file to database start
+		/*//　read file to database start
 		try {
 						
-			/*
+			
 			 * 普通のCassandraに接続方法（OK）
 			 * Cluster cqlcluster = Cluster.builder().addContactPoint("localhost")
 					.withPort(9042).build();
@@ -112,7 +119,7 @@ public class FileUploadAction extends ActionSupport {
 			
 			//　cqlコマンド実行する
 			cqlsession.execute(boundStatement.bind(filename, i,	line.toString()));		
-			普通のCassandraに接続方法　*/
+			普通のCassandraに接続方法　
 
 			//　CassandraDAOの方法で
 			CassandraDAO cassandraDAO = new CassandraDAO();
@@ -171,13 +178,14 @@ public class FileUploadAction extends ActionSupport {
 			}
 			br.close();
 			cassandraDAO.close();			
-			/*cqlsession.close();
-			cqlcluster.close();*/
+			cqlsession.close();
+			cqlcluster.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		// read file to database end
+		*/
 
 		if (chunk == chunks - 1) {
 			// 完成一整个文件;
@@ -187,8 +195,22 @@ public class FileUploadAction extends ActionSupport {
 		}
 		// test
 
-		System.out.println("return success test: ");
+		/*System.out.println("return success test: ");
 		System.out.println("*************************** ");
+		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setContentType("text/html");
+	    PrintWriter out;
+		try {
+			out = response.getWriter();
+			System.out.println(out.toString());
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		
+		
+		System.out.println("response output complete *************************** ");*/
+		
 		return SUCCESS;
 	}
 
@@ -199,18 +221,18 @@ public class FileUploadAction extends ActionSupport {
 		OutputStream out = null;
 		try {
 			if (dst.exists()) {
-				out = new BufferedOutputStream(new FileOutputStream(dst, true),
+				out = new BufferedOutputStream(new FileOutputStream(dst, true),//　書き出しバッファ、存在する場合、上書き
 						BUFFER_SIZE);
 			} else {
 				out = new BufferedOutputStream(new FileOutputStream(dst),
 						BUFFER_SIZE);
 			}
-			in = new BufferedInputStream(new FileInputStream(src), BUFFER_SIZE);
+			in = new BufferedInputStream(new FileInputStream(src), BUFFER_SIZE);//　読み取りバッファ
 
-			byte[] buffer = new byte[BUFFER_SIZE];
+			byte[] buffer = new byte[BUFFER_SIZE]; //バイトバッファを作成
 			int len = 0;
-			while ((len = in.read(buffer)) > 0) {
-				out.write(buffer, 0, len);
+			while ((len = in.read(buffer)) > 0) { //inからbufferに読み取り
+				out.write(buffer, 0, len); //bufferからoutに書き込み
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

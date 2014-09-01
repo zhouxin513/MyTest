@@ -21,6 +21,11 @@
     <bean id="FileUploadAction" class="com.bestskip.tool.converter.FileUploadAction"
         scope="prototype">
     </bean>
+        
+    <!-- action class for file upload and format 20140819 -->
+    <bean id="FileUploadActionFormatter" class="com.bestskip.tool.converter.FileUploadActionFormatter"
+        scope="prototype">
+    </bean>
     
     
 </beans>

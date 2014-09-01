@@ -15,14 +15,35 @@
 
         <action name ="FileUpload" class ="FileUploadAction" method="upload">
             <param name="savePath">/fileUpload</param> <!-- pass the file savepath param to the action -->
+            
             <result name ="success">/jsp/result.jsp</result> <!-- this result do nothing -->
+            
         </action >
         <action name ="Submit" class ="FileUploadAction" method="submit">
-            <param name="savePath">/fileUupload</param> <!-- pass the file savepath param to the action -->
+            <param name="savePath">/fileUpload</param> <!-- pass the file savepath param to the action -->
             <result name ="success">/jsp/result.jsp</result>
         </action >
 
         <!-- Plupload Queue Widget action end -->
+        
+        
+        
+        <!-- file upload and format action start 20140819-->
+
+        <action name ="FileUploadFormat" class ="FileUploadActionFormatter" method="upload">
+            <param name="savePath">/fileUpload</param> <!-- pass the file savepath param to the action -->
+            <result name ="success">/jsp/result.jsp</result> <!-- this result do nothing -->
+        </action >
+        <action name ="SubmitFormat" class ="FileUploadActionFormatter" method="submit">
+            <param name="savePath">/fileUpload</param> <!-- pass the file savepath param to the action -->
+            <result name ="success">/jsp/result.jsp</result>
+        </action >
+
+        <!-- Plupload Queue Widget action end -->
+        
+        
+        
+        
 
         <!-- Add actions here -->
          

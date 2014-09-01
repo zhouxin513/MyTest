@@ -52,17 +52,95 @@
 				flash_swf_url : '../plupload/plupload.flash.swf',
 				// Silverlight settings
 				silverlight_xap_url : '../plupload/plupload.silverlight.xap',
+				
 				multipart_params : {
 					'user' : 'BestSkip.com',
 					'time' : '2014-08-10'
 				}
+				,
+				
+				/* // PreInit events, bound before any internal events
+		        preinit : {
+		            Init: function(up, info) {
+		                log('[Init]', 'Info:', info, 'Features:', up.features);
+		            },
+		 
+		            UploadFile: function(up, file) {
+		                log('[UploadFile]', file);
+		 
+		                // You can override settings before the file is uploaded
+		                // up.setOption('url', 'upload.php?id=' + file.id);
+		                // up.setOption('multipart_params', {param1 : 'value1', param2 : 'value2'});
+		            }
+		        },
+		         */
+		        
+		       // Post init events, bound after the internal events
+				init : {
+		            UploadComplete: function(up, files) {
+		                // Called when all files are either uploaded or failed
+		                log('[UploadComplete]');
+		                alert("upload 完了");
+		            }
+	           
+		        }//int over
+					
 			});
 		}
+				
 		plupload();
 		$('#clear').click(function() {
 			plupload();
 		});
+		
+		function log() {
+	        var str = "";
+	 
+	        plupload.each(arguments, function(arg) {
+	            var row = "";
+	 
+	            if (typeof(arg) != "string") {
+	                plupload.each(arg, function(value, key) {
+	                    // Convert items in File objects to human readable form
+	                    if (arg instanceof plupload.File) {
+	                        // Convert status to human readable
+	                        switch (value) {
+	                            case plupload.QUEUED:
+	                                value = 'QUEUED';
+	                                break;
+	 
+	                            case plupload.UPLOADING:
+	                                value = 'UPLOADING';
+	                                break;
+	 
+	                            case plupload.FAILED:
+	                                value = 'FAILED';
+	                                break;
+	 
+	                            case plupload.DONE:
+	                                value = 'DONE';
+	                                break;
+	                        }
+	                    }
+	 
+	                    if (typeof(value) != "function") {
+	                        row += (row ? ', ' : '') + key + '=' + value;
+	                    }
+	                });
+	 
+	                str += row + " ";
+	            } else {
+	                str += arg + " ";
+	            }
+	        });
+	 
+	        var log = $('#log');
+	        log.append(str + "\n");
+	        log.scrollTop(log[0].scrollHeight);
+	    } 
+		
 	});
+	//});
 
 </script>
 
@@ -83,7 +161,20 @@
 				<input type="button" value="reset" id="clear" />
 			</form>
 		</div>
+		<pre id="log" style="height: 300px; overflow: auto">
+
+    [Init] Info: runtime=html5 Features: chunks=true, …
+
+    [PostInit] 
+
+</pre>
 	</div>
+	
+	<!-- test source -->
+	<div style="width: 700px; margin: 0px auto">
+	<textarea rows="3" cols="">upload file lists</textarea>
+	</div>
+	<input type="button" value="use parants js" onclick=" window.opener.loadPage()"/>
 </body>
 
 </html>
