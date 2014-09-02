@@ -295,7 +295,8 @@
                 if (x == t.length) {
                     this.trigger("UploadComplete", t);
                     
-                    alert("UploadComplete");
+                   // alert("UploadComplete");
+                  // document.getElementById("fileList").innerHTML="<b>タグ</b>を含む書換え";
                     
                     this.stop()
                     
@@ -809,6 +810,7 @@
                 }
             }
         });
+        
         l({success: true})
     }})
 })(window, document, plupload);
@@ -1599,7 +1601,7 @@
             var F, E, B = [], u, C, s = v.settings.filters, t, A, r = k.body, D;
             F = k.createElement("div");
             
-            alert("create div");
+            //alert("create div");
             
             F.id = v.id + "_html5_container";
             j.extend(F.style, {position: "absolute", background: p.settings.shim_bgcolor || "transparent", width: "100px", height: "100px", overflow: "hidden", zIndex: 99999, opacity: p.settings.shim_bgcolor ? "" : 0});
@@ -1791,7 +1793,8 @@
                                         t.status = j.DONE;
                                         r.trigger("FileUploaded", t, {response: U.responseText, status: Y})
                                         
-                                        alert(U.responseText);
+                                       // alert("fileUploaded 1795")
+                                       // alert(U.responseText);
                                         
                                     } else {
                                         A()
@@ -1913,6 +1916,16 @@
             }
             s.removeChild(k.getElementById(v.inputContainer))
         });
+        
+   /*    p.bind("FileUploaded", function (up, file, response) {
+            alert("FileUploaded 1920");
+               alert(response.response);
+               
+               document.getElementById("fileList").innerHTML="<b>タグ</b>を含む書換え";
+                 
+           });*/
+      
+        
         q({success: true})
     }});
     function b() {

@@ -2,34 +2,22 @@
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.catalina.connector.Request;
 import org.apache.struts2.ServletActionContext;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-
-
-
-
-
-import com.datastax.driver.core.BatchStatement;
-import com.datastax.driver.core.ConsistencyLevel;
-import com.datastax.driver.core.PreparedStatement;
-import com.datastax.driver.core.RegularStatement;
-import com.datastax.driver.core.SimpleStatement;
 import com.opensymphony.xwork2.ActionSupport;
 
 
@@ -55,30 +43,32 @@ public class FileUploadAction extends ActionSupport {
 	private int chunk;
 	private int chunks;
 	private String result;
-	
-	
 
 
 	public String upload() {
-		
+
 		// test
 	    System.out.println("upload test: ");
-				
+
+
+
 		String filename = this.getName();
-		
+
 	    String dstPath = ServletActionContext.getServletContext().getRealPath(
 				this.getSavePath())
 				+ "\\" + filename;
-	    
-	    
-	    
+
+	    HttpServletRequest req = ServletActionContext.getRequest();
+	    System.out.println(req.getParameter(filename));
+
+
 		File dstFile = new File(dstPath);
-		
-		
+
+
 		// test
 		System.out.println("ファイル名: " + dstPath );
-		
-		
+
+
 		// 同じファイル名が存在するかどうかをチェックする
 		if (chunk == 0 && dstFile.exists()) {
 			dstFile.delete();
@@ -94,8 +84,8 @@ public class FileUploadAction extends ActionSupport {
 
 		/*//　read file to database start
 		try {
-						
-			
+
+
 			 * 普通のCassandraに接続方法（OK）
 			 * Cluster cqlcluster = Cluster.builder().addContactPoint("localhost")
 					.withPort(9042).build();
@@ -107,23 +97,23 @@ public class FileUploadAction extends ActionSupport {
 
 			// sessionを作成
 			Session cqlsession = cqlcluster.connect("jspconvertor");
-			
+
 			StringBuilder cql_insert = new StringBuilder();
 			cql_insert = cql_insert
 					.append(" INSERT INTO jspconvertor.tm_jsp_convert_history (convert_id, jsp_name, line_no,")
 					.append("  line_contents)")
 					.append(" VALUES (uuid(), ?, ?, ?)");
-			
-			PreparedStatement statement = cqlsession.prepare(cql_insert.toString());			
-			BoundStatement boundStatement = new BoundStatement(statement);	
-			
+
+			PreparedStatement statement = cqlsession.prepare(cql_insert.toString());
+			BoundStatement boundStatement = new BoundStatement(statement);
+
 			//　cqlコマンド実行する
-			cqlsession.execute(boundStatement.bind(filename, i,	line.toString()));		
+			cqlsession.execute(boundStatement.bind(filename, i,	line.toString()));
 			普通のCassandraに接続方法　
 
 			//　CassandraDAOの方法で
 			CassandraDAO cassandraDAO = new CassandraDAO();
-			
+
 			//　実行予定CQL文
 			StringBuilder cql_insert = new StringBuilder();
 			cql_insert = cql_insert
@@ -132,11 +122,11 @@ public class FileUploadAction extends ActionSupport {
 					.append(" VALUES (uuid(), ?, ?, ?)");
 
 			System.out.println("実行予定CQL文：　" + cql_insert.toString());
-			
+
 			//　PreparedStatementを作成する
 			RegularStatement toPrepare = (RegularStatement) new SimpleStatement(cql_insert.toString())
 			.setConsistencyLevel(ConsistencyLevel.QUORUM);
-						
+
 	        PreparedStatement prepared = cassandraDAO.getSession().prepare(toPrepare);
 
 			//　アップロードしたファイルをBufferedReaderで読み取り
@@ -145,28 +135,28 @@ public class FileUploadAction extends ActionSupport {
 			// 最終行まで読み込む
 			String line = "";
 			int i = 0;
-			
+
 			while ((line = br.readLine()) != null) {
 
 				i = i + 1;
 				System.out.println(line.toString());
-				
+
 				// CQL文のパラメータを作成
 				ArrayList<Object> paramList = new ArrayList<Object>();
-				
+
 				paramList.add(filename);
 				paramList.add(i);
 				paramList.add(line.toString());
-				
+
 				BatchStatement batch = new BatchStatement();
 				Object[] inputObj = new Object[paramList.size()];
-				
+
 				for (int j = 0; j < paramList.size(); j++) {
 					inputObj[j] = paramList.get(j);
 				}
-				
+
 				batch.add(prepared.bind(inputObj));
-				
+
 				//　CQL文を実行する
 				cassandraDAO.getSession().execute(batch);
 
@@ -177,7 +167,7 @@ public class FileUploadAction extends ActionSupport {
 				}
 			}
 			br.close();
-			cassandraDAO.close();			
+			cassandraDAO.close();
 			cqlsession.close();
 			cqlcluster.close();
 		} catch (Exception e) {
@@ -188,13 +178,12 @@ public class FileUploadAction extends ActionSupport {
 		*/
 
 		if (chunk == chunks - 1) {
-			// 完成一整个文件;
+			// 一つファイル処理完了;
 			// test
 			System.out.println("chunk test: ");
 
 		}
-		// test
-
+		
 		/*System.out.println("return success test: ");
 		System.out.println("*************************** ");
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -207,12 +196,48 @@ public class FileUploadAction extends ActionSupport {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
-		
-		
 		System.out.println("response output complete *************************** ");*/
 		
-		return SUCCESS;
+		StringBuilder fileUrl = new StringBuilder().append("http://")
+				.append(req.getServerName())
+				.append(":")
+				.append(req.getServerPort())
+				.append(req.getServletContext().getContextPath())
+				.append("/fileUpload/")
+				.append(filename)
+				;
+		System.out.println("file url" + fileUrl.toString());
+
+		HttpServletResponse response = ServletActionContext.getResponse();
+
+		response.setContentType("application/json");
+
+			JSONObject obj = new JSONObject();
+
+	        try {
+				obj.put("fileUrl", fileUrl.toString());
+				obj.put("fileName", filename);
+				//その他のデーター
+				//obj.put("servercontext", req.getServletContext().getContextPath());
+			} catch (JSONException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+
+			}
+	        try {
+			        //response.setContentType("application/json");
+			        response.setContentType("application/json; charset=UTF-8");
+			        PrintWriter out = response.getWriter();
+			        out.print(obj.toString());
+			        out.close();
+			    } catch (IOException e) {
+			        e.printStackTrace();
+			    }
+
+			return SUCCESS;
 	}
+
+
 
 	private void saveUploadFile(File src, File dst) {
 		// test
