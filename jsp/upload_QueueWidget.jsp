@@ -5,11 +5,11 @@
 <link rel="stylesheet" type="text/css" href="../plupload/jquery.plupload.queue/css/jquery.plupload.queue.css"
       type="text/css" media="screen"/>
 
-<script type="text/javascript" src="../js/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="jquery/js/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="../plupload/plupload.full.js"></script>
 <script type="text/javascript" src="../plupload/jquery.plupload.queue/jquery.plupload.queue.js"></script>
 <script type="text/javascript" src="../plupload/i18n/cn.js"></script>
-<script src="jsp/js/dragNdrop.js" type="text/javascript"></script>
+<script src="js/dragNdrop.js" type="text/javascript"></script>
 <style type="text/css">
 
 
@@ -226,11 +226,13 @@
 
         plupload();
 
+        // pluploadのWidgetをリセットする、ラジオ内容を全部消します。
         $('#clear-btn').click(function () {
             plupload();
             $('#radioDiv').empty();
         });
 
+        // radioボタンをクリックするときのファンクション、選択したファイルのURLを取得し、親Windowのiframeにてページを表示する。選択されてなければ警告が出る。
         $('#select-btn').click(function () {
             if (!$("input:radio[name='radioGrp']:checked").val()) {
                 alert("Uploaded fileが未選択");

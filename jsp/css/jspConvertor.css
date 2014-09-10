@@ -446,7 +446,7 @@ body[data-route-over-capacity="true"][data-agency] #shutto-body {
     cursor: pointer;
     border-radius: 2px;
     padding: 1px 16px 10px 8px;
-    background: url(/assets/convert/pulldown_close_menu-033569bb768335ced00a78f3c00008da.png) no-repeat right 4px top 7px
+    background: url(../img/pulldown_close_menu.png) no-repeat right 4px top 7px
 }
 
 #shutto-preview-container > header > #shutto-preview-button-width:hover {
@@ -455,7 +455,7 @@ body[data-route-over-capacity="true"][data-agency] #shutto-body {
 
 #shutto-preview-container > header > #shutto-preview-button-width.shutto-on {
     background-color: #4f4f4f;
-    background-image: url(/assets/convert/pulldown_open_menu-ba5ae5f66c4dce0269ab27dadf6b6d7f.png)
+    background-image: url(../img/pulldown_open_menu.png);
 }
 
 
@@ -473,11 +473,12 @@ body[data-route-over-capacity="true"][data-agency] #shutto-body {
     cursor: pointer;
     padding: 1px 8px 1px 24px;
     border-radius: 2px;
-    background: url(/assets/convert/menu-button-5b18d3258dcd691d5196ec8ba7751734.png) 8px 3px no-repeat
+    background: url(../img/menu-button.png) 8px 3px no-repeat
 }
 
 #shutto-preview-container > header > #shutto-preview-button-menu:hover {
-    background-color: #333
+    background-color: #ff0000
+/*background-color: #333*/
 }
 
 #shutto-preview-container > header > #shutto-preview-button-menu.shutto-on {

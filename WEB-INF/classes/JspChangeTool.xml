@@ -8,7 +8,7 @@
     <package name="JspChangeTool" namespace="/" extends="default">
 
         <action name="HelloWorld" class="HelloWorld" method="initPage">
-            <result>/jsp/HelloWorld.jsp</result>
+            <result>/jsp/main.jsp</result>
         </action>
         
         <!-- Plupload Queue Widget action start -->

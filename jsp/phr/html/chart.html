@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<title>健康診断結果</title>
+
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="description" content="this is my page">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<link rel="stylesheet" href="../jquery/css/jquery.mobile-theme.min.css">
+<link rel="stylesheet" href="../jquery/css/jquery.jqplot.css">
+<link rel="stylesheet" href="../css/common.css">
+<link rel="stylesheet" href="../css/kensindetail.css">
+<script src="../jquery/js/jquery.js"></script>
+<script src="../jquery/js/jquery.mobile-1.3.2.min.js"></script>
+<script src="../jquery/js/jquery.jqplot.js"></script>
+<script type="text/javascript">	
+var chartPlot ;
+
+$(function(){
+  	$.mobile.buttonMarkup.hoverDelay = "false";
+
+	var l1 = [ 4, 7, 9, 2, 11, 5, 9, 13, 8, 7 ];
+
+	chartPlot = $.jqplot('chart_show', [ l1], {
+		title : 'BMI',
+		legend : {
+			show : true,
+			placement: 'outsideGrid'
+		},
+		series : [ {
+			label : 'BMI'
+		}]
+	});
+});
+
+var orientation=0;
+function screenOrientationEvent(){
+   alert("vvv")
+   chartPlot.replot();
+}
+var innerWidthTmp = window.innerWidth;
+function screenOrientationListener(){
+alert("aaaa");
+    try{
+        var iw = window.innerWidth;     
+        if(iw != innerWidthTmp){
+            if(iw>window.innerHeight) {
+	            orientation = 90;
+            }
+            else{
+	            orientation = 0;
+            }
+            screenOrientationEvent();
+            innerWidthTmp = iw;
+        }
+    } catch(e){};
+    setTimeout("screenOrientationListener()",500);
+}
+screenOrientationListener();
+
+
+  </script>
+</head>
+
+<body onload="screenOrientationListener()">
+	<div data-role="page" id="kensinlist-page" data-theme="c"
+		data-url="kensindetail-page">
+		<!-- HEADER START -->
+		<div data-role="header" data-theme="g" data-position="fixed"
+			data-tap-toggle="false" id="header" class="jqm-header">
+			<a href="#left-panel" data-icon="bars" data-iconpos="notext"
+				data-theme="c" class="jqm-menu" data-shadow="false"
+				data-iconshadow="false">メニュー</a>
+			<h1 style="text-align:left;margin-left:12%;">BMI</h1>
+			<div class="ui-btn-right">
+				<a href="javascript:history.go(-1);" data-role="button" data-icon="back" data-inline="true" data-theme="c" data-iconpos="notext" class="jqm-icon-inner" style="margin-right:10px;">back</a>
+				<a href="top.html" data-role="button" data-icon="home"  data-inline="true" data-theme="c" data-ajax="false" data-iconpos="notext" class="jqm-icon-inner">home</a>
+			</div>
+		</div>
+		<!-- HEADER END -->
+		<!-- CONTENT START -->
+		<div data-role="content">
+			<div id="chart_show" style="height:320px;"></div>
+		</div>
+		<div data-role="footer" class="jqm-footer">
+			<p>© Copyright 2013</p>
+		</div>
+		<!-- MENU START -->
+		<div data-role="panel" id="left-panel" data-theme="c">
+			<div data-role="collapsible" class="jqm-menu-list" data-inset="false" data-collapsed="false" data-iconpos="right"
+				data-theme="g" data-content-theme="h" id="top">
+				
+				<h2>TOP画面</h2>
+				<ul data-role="listview" class="jqm-menu-list" data-theme="h" data-icon="false">
+					<li><a href="top.html"  data-ajax="false">TOP画面へ</a>
+					</li>
+				</ul>
+			</div>
+			<div data-role="collapsible" data-inset="false" data-collapsed="false" data-iconpos="right"
+				data-theme="g" data-content-theme="h" id="kensin">
+				<h2>データ管理</h2>
+				<ul data-role="listview" class="jqm-menu-list" data-theme="h" data-icon="false">
+					<li><a href="kensinlist.html" data-ajax="false" >健診データ閲覧・変更</a>
+					</li>
+					<li><a href="searchservice.html" data-ajax="false" >個別健康サービス検索</a>
+					</li>
+					<li><a href="loginmedical.html" data-ajax="false" >健診データ登録</a>
+					</li>
+				</ul>
+			</div>
+			<div data-role="collapsible" data-inset="false" data-collapsed="false" data-iconpos="right"
+				data-theme="g" data-content-theme="h" id="search">
+				<h2>健診サービス管理</h2>
+				<ul data-role="listview" class="jqm-menu-list" data-theme="h" data-icon="false">
+					<li><a href="newallresult.html" data-ajax="false">同意情報変更</a>
+					</li>
+				</ul>
+			</div>
+			<div data-role="collapsible" data-inset="false" data-collapsed="false" data-iconpos="right"
+				data-theme="g" data-content-theme="h" id="user">
+				<h2>ユーザ情報管理</h2>
+				<ul data-role="listview" class="jqm-menu-list" data-theme="h" data-icon="false">
+					<li><a href="loginuserup.html" data-ajax="false">利用者情報変更</a>
+					</li>
+					<li><a href="nayosetoroku.html" data-ajax="false">名寄登録</a>
+					</li>
+					<li><a href="userexit.html" data-ajax="false">利用者退会</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- MENU END -->
+	</div>
+</body>
+</html>

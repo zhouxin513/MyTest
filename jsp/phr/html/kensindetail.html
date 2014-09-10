@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html>
+<title>健康診断結果</title>
+
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="description" content="this is my page">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<link rel="stylesheet" href="../jquery/css/jquery.mobile-theme.min.css">
+<link rel="stylesheet" href="../css/common.css">
+<link rel="stylesheet" href="../css/kensindetail.css">
+<script src="../jquery/js/jquery.js"></script>
+<script src="../jquery/js/jquery.mobile-1.3.2.min.js"></script>
+<script src="../js/kensindetail.js"></script>
+<script type="text/javascript">	
+  	$(function(){
+  		$.mobile.buttonMarkup.hoverDelay = "false";
+  	});
+  </script>
+</head>
+
+<body>
+	<div data-role="page" id="kensinlist-page" data-theme="c"
+		data-url="kensindetail-page">
+		<!-- HEADER START -->
+		<div data-role="header" data-theme="g" data-position="fixed" 
+			data-tap-toggle="false" id="header" class="jqm-header">
+			<a href="#left-panel" data-icon="bars" data-iconpos="notext"
+				data-theme="c" class="jqm-menu" data-shadow="false"
+				data-iconshadow="false">メニュー</a>
+			<h1>健康診断結果</h1>
+			<div class="ui-btn-right">
+				<a href="javascript:history.go(-1);" data-role="button" data-icon="back" data-inline="true" data-theme="c" data-iconpos="notext" class="jqm-icon-inner" style="margin-right:10px;">back</a>
+				<a href="top.html" data-role="button" data-icon="home"  data-inline="true" data-theme="c" data-ajax="false" data-iconpos="notext" class="jqm-icon-inner">home</a>
+			</div>
+			
+				
+			<footer data-role="header" data-theme="c" data-tap-toggle="false">
+				<div data-role="controlgroup" data-type="horizontal" data-corners="false">
+				    <a href="kensindetail.html" data-role="button" class="jqm-btn-left" data-icon="arrow-l" data-iconpos="left" data-inline="true" data-theme="c" data-ajax="false">前へ</a>
+					<a href="kensindetail.html" data-role="button" class="jqm-btn-right" data-icon="arrow-r" data-iconpos="right" data-inline="true" data-theme="c" data-ajax="false">次へ</a>
+				</div>
+			</footer>
+		</div>
+		<!-- HEADER END -->
+		<!-- CONTENT START -->
+		<div data-role="content">
+			
+			<table data-role="table" id="kensinlist" data-mode="columntoggle"
+				class=" table-stripe  jqm-region jqm-table">
+				<thead>
+					<tr class="th-groups">
+						<th colspan="2">健康診断結果</th>						
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td width="30%">健診日</td>
+						<td width="70%">2013年5月31日</td>
+					</tr>
+					<tr>
+						<td>実施機関</td>
+						<td>財団法人神奈川県予防医学協会中央診療所</td>
+					</tr>
+					<tr>
+						<td>受診番号</td>
+						<td>12345677823</td>
+					</tr>
+				</tbody>
+			</table>
+			<table data-role="table" id="kensinlist" data-mode="columntoggle"
+				class=" table-stripe  jqm-region jqm-table" >
+				<thead>
+					<tr class="th-groups">
+						<th>医師の診断</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							【要経過観察】<br/>
+							太りすぎです。体重減量に努力しましょう。体脂肪率高いです。
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			 <!-- MANAGER START -->
+		 	<div id=kensinlist class="jqm-region">
+		 		<ul data-role="listview" data-icon="false" data-theme="h">
+					<li data-role="list-divider" data-theme="h" style="padding:0;">
+					
+						<footer
+							data-role="header">
+							<nav data-role="navbar">
+								<ul>
+									<li><a href="javaScript:chenge(1)" id="examination"
+										class="ui-btn-active-cope" >検査結果</a>
+									</li>
+									<li><a href="javaScript:chenge(2)" id="inquiry">問診結果</a>
+									</li>
+								</ul>
+							</nav>
+						</footer>
+					</li>
+					<li  data-theme="h" class="">
+						<table class="table examination">
+							<thead>
+								<tr style="text-align:center;">
+									<th width="20%">分類</th>
+									<th colspan="2" width="30%">項目</th>
+									<th width="20%">基准値</th>
+									<th width="30%">今回</th>
+									<th width="20%">グラフ</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td rowspan="5">計測</td>
+									<td colspan="2">身長(cm)</td>
+									<td></td>
+									<td class="nowrap" bgcolor="#FAAFBA">180.0</td>
+									<td ></td>
+								</tr>
+								<tr>
+									<td colspan="2">体重(kg)</td>
+									<td></td>
+									<td class="nowrap">65.5</td>
+									<td >
+										<a href="chart.html" data-role="button"  class="jqm-icon-inner" data-position-to="window" data-ajax="false"
+											 data-inline="true" data-transition="slidedown" data-icon="grid" data-theme="c" data-iconpos="notext">
+										Learn more</a>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">BMI(kg/m2)</td>
+									<td class="center">18.5～24.9</td>
+									<td class="nowrap">21.6</td>
+									<td>
+										<a href="chart.html" data-role="button"  class="jqm-icon-inner" data-position-to="window" data-ajax="false"
+											 data-inline="true" data-transition="slidedown" data-icon="grid" data-theme="c" data-iconpos="notext">
+										Learn more</a>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">腹囲(cm)</td>
+									<td class="center">～84.9</td>
+									<td class="nowrap" bgcolor="#FAAFBA">-85.0</td>
+									<td>
+										<a href="chart.html" data-role="button"  class="jqm-icon-inner" data-position-to="window" data-ajax="false"
+											 data-inline="true" data-transition="slidedown" data-icon="grid" data-theme="c" data-iconpos="notext">
+										Learn more</a>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">肥満度</td>
+									<td></td>
+									<td class="nowrap">-</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td rowspan="2">視力</td>
+									<td colspan="2">右</td>
+									<td></td>
+									<td class="nowrap">0.5(1.5)</td>
+									<td>
+										<a href="chart.html" data-role="button"  class="jqm-icon-inner" data-position-to="window" data-ajax="false"
+											 data-inline="true" data-transition="slidedown" data-icon="grid" data-theme="c" data-iconpos="notext">
+										Learn more</a>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">左</td>
+									<td></td>
+									<td class="nowrap">0.2(1.2)</td>
+									<td>
+										<a href="chart.html" data-role="button"  class="jqm-icon-inner" data-position-to="window" data-ajax="false"
+											 data-inline="true" data-transition="slidedown" data-icon="grid" data-theme="c" data-iconpos="notext">
+										Learn more</a>
+									</td>
+								</tr>
+								<tr>
+									<td rowspan="4">聴力</td>
+									<td rowspan="2">右</td>
+									<td>1000HZ</td>
+									<td></td>
+									<td class="nowrap">異常所見なし</td>
+									<td></td>
+								</tr>
+								<tr>
+
+									<td>4000HZ</td>
+									<td></td>
+									<td class="nowrap">異常所見なし</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td rowspan="2">左</td>
+									<td>1000HZ</td>
+									<td></td>
+									<td class="nowrap">異常所見なし</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>4000HZ</td>
+									<td></td>
+									<td class="nowrap">異常所見なし</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td rowspan="2">血圧</td>
+									<td colspan="2">1回目(mmHg)</td>
+									<td class="center">140 - 90</td>
+									<td class="nowrap">120 - 85</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td colspan="2">2回目(mmHg)</td>
+									<td class="center">140 - 90</td>
+									<td class="nowrap">120 - 85</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td rowspan="4">腎泌尿器</td>
+									<td colspan="2">血清クレアチ二ン①</td>
+									<td></td>
+									<td class="nowrap">-</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td colspan="2">血清クレアチ二ン②</td>
+									<td></td>
+									<td class="nowrap">-</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td rowspan="3">尿検査</td>
+									<td>蛋白</td>
+									<td></td>
+									<td class="nowrap">-</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>潜血</td>
+									<td></td>
+									<td class="nowrap">-</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td rowspan="3">糖代謝</td>
+									<td>糖</td>
+									<td></td>
+									<td class="nowrap">-</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td colspan="2">空腹時血糖(mg/dl)</td>
+									<td class="center">70～109</td>
+									<td class="nowrap" bgcolor="#FAAFBA">* 69</td>
+									<td>
+										<a href="chart.html" data-role="button"  class="jqm-icon-inner" data-position-to="window" data-ajax="false"
+											 data-inline="true" data-transition="slidedown" data-icon="grid" data-theme="c" data-iconpos="notext">
+										Learn more</a>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">随時血糖(mg/dl)</td>
+									<td class="center">～140</td>
+									<td class="nowrap">125</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td rowspan="6">血液検査</td>
+									<td colspan="2">HbA1c(%)</td>
+									<td class="center">4.3～5.8</td>
+									<td class="nowrap" bgcolor="#FAAFBA">* 6.2</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td colspan="2">血色素量</td>
+									<td></td>
+									<td class="nowrap">-</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td colspan="2">赤血球数</td>
+									<td></td>
+									<td class="nowrap">-</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td colspan="2">ヘマトクリット値</td>
+									<td></td>
+									<td class="nowrap">-</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td colspan="2">白血球数</td>
+									<td></td>
+									<td class="nowrap">-</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td colspan="2">血小板数</td>
+									<td></td>
+									<td class="nowrap">-</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td rowspan="4">肝機能検査</td>
+									<td colspan="2">GOT</td>
+									<td></td>
+									<td class="nowrap">-</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td colspan="2">GPT</td>
+									<td></td>
+									<td class="nowrap">-</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td colspan="2">Y-GTP</td>
+									<td></td>
+									<td class="nowrap">-</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td colspan="2">ALP</td>
+									<td></td>
+									<td class="nowrap">-</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td rowspan="4">血中脂質</td>
+									<td colspan="2">総コレステロール(mg/dl)</td>
+									<td class="center">130～219</td>
+									<td class="nowrap">169</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td colspan="2">HDLコレステロール(mg/dl)</td>
+									<td class="center">40～</td>
+									<td class="nowrap" bgcolor="#FAAFBA">* 39</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td colspan="2">LDLコレステロール(mg/dl)</td>
+									<td class="center">～139</td>
+									<td class="nowrap">121</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td colspan="2">トリグリセライド(mg/dl)</td>
+									<td class="center">50～149</td>
+									<td class="nowrap">72</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td rowspan="3">その他</td>
+									<td colspan="2">尿酸</td>
+									<td></td>
+									<td class="nowrap">-</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td colspan="2">HBs抗原</td>
+									<td></td>
+									<td class="nowrap">-</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td colspan="2">HBs抗体</td>
+									<td></td>
+									<td class="nowrap">-</td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+					</li>
+					<li class="inquiry">
+						<a href="#">
+							<p>1&nbsp;&nbsp;&nbsp;&nbsp;タバコを吸いますか？</p>
+							<br>
+							<p>いいえ</p>
+						</a>
+					</li>
+					<li class="inquiry">
+						<a href="#">
+							<p>2&nbsp;&nbsp;&nbsp;&nbsp;現在、血圧を下げる薬を服用していますか？</p>
+							<br>
+							<p>いいえ</p>
+						</a>
+					</li>
+					<li class="inquiry">
+						<a href="#">
+							<p>3&nbsp;&nbsp;&nbsp;&nbsp;現在、インスリン注射又は血糖を下げる薬を服用していますか？</p>
+							<br>
+							<p>いいえ</p>
+						</a>
+					</li>
+					<li class="inquiry">
+						<a href="#">
+							<p>4&nbsp;&nbsp;&nbsp;&nbsp;現在、コレステロールを下げる薬を服用していますか？</p>
+							<br>
+							<p>いいえ</p>
+						</a>
+					</li>
+					<li class="inquiry">
+						<a href="#">
+							<p>5&nbsp;&nbsp;&nbsp;&nbsp;医師から、脳卒中（脳出血、脳梗塞等）にかかっていると言われたり、治療を受けたことがありますか？</p>
+							<br>
+							<p>いいえ</p>
+						</a>
+					</li>
+					<li class="inquiry">
+						<a href="#">
+							<p>6&nbsp;&nbsp;&nbsp;&nbsp;医師から、慢性の腎不全にかかっていると言われたり、治療（人工透析）を受けたことがありますか？</p>
+							<br>
+							<p>いいえ</p>
+						</a>
+					</li>
+					<li class="inquiry">
+						<a href="#">
+							<p>7&nbsp;&nbsp;&nbsp;&nbsp;医師から、貧血と言われたことがありますか？</p>
+							<br>
+							<p>いいえ</p>
+						</a>
+					</li>
+					<li class="inquiry">
+						<a href="#">
+							<p>8&nbsp;&nbsp;&nbsp;&nbsp;現在、たばこを習慣的に吸っていますか？</p>
+							<br>
+							<p>いいえ</p>
+						</a>
+					</li>
+					<li class="inquiry">
+						<a href="#">
+							<p>9&nbsp;&nbsp;&nbsp;&nbsp;20歳の時の体重から10ｋｇ以上増加していますか？</p>
+							<br>
+							<p>いいえ</p>
+						</a>
+					</li>
+					<li class="inquiry">
+						<a href="#">
+							<p>10&nbsp;&nbsp;&nbsp;&nbsp;1回30分以上の軽く汗をかく運動を週2日以上、継続的（1年以上）に実施していますか？</p>
+							<br>
+							<p>いいえ</p>
+						</a>
+					</li>
+					<li class="inquiry">
+						<a href="#">
+							<p>11&nbsp;&nbsp;&nbsp;&nbsp;日常生活において、歩行又は同等の身体活動を1日1時間以上実施していますか？</p>
+							<br>
+							<p>いいえ</p>
+						</a>
+					</li>
+					<li class="inquiry">
+						<a href="#">
+							<p>12&nbsp;&nbsp;&nbsp;&nbsp;ほぼ同じ年齢の同性と比較して歩く速度が速いと思いますか？</p>
+							<br>
+							<p>いいえ</p>
+						</a>
+					</li>
+					<li class="inquiry">
+						<a href="#">
+							<p>13&nbsp;&nbsp;&nbsp;&nbsp;この1年間で体重の増減が±3㎏以上ありましたか？ </p>
+							<br>
+							<p>いいえ</p>
+						</a>
+					</li>
+					
+				</ul>
+			</div>
+		</div>
+		<div data-role="footer" class="jqm-footer">
+			<p>© Copyright 2013</p>
+		</div>
+		<!-- MENU START -->
+		<div data-role="panel" id="left-panel" data-theme="c">
+			<div data-role="collapsible" class="jqm-menu-list" data-inset="false" data-collapsed="false" data-iconpos="right"
+				data-theme="g" data-content-theme="h" id="top">
+				
+				<h2>TOP画面</h2>
+				<ul data-role="listview" class="jqm-menu-list" data-theme="h" data-icon="false">
+					<li><a href="top.html"  data-ajax="false">TOP画面へ</a>
+					</li>
+				</ul>
+			</div>
+			<div data-role="collapsible" data-inset="false" data-collapsed="false" data-iconpos="right"
+				data-theme="g" data-content-theme="h" id="kensin">
+				<h2>データ管理</h2>
+				<ul data-role="listview" class="jqm-menu-list" data-theme="h" data-icon="false">
+					<li><a href="kensinlist.html" data-ajax="false" >健診データ閲覧・変更</a>
+					</li>
+					<li><a href="searchservice.html" data-ajax="false" >個別健康サービス検索</a>
+					</li>
+					<li><a href="loginmedical.html" data-ajax="false" >健診データ登録</a>
+					</li>
+				</ul>
+			</div>
+			<div data-role="collapsible" data-inset="false" data-collapsed="false" data-iconpos="right"
+				data-theme="g" data-content-theme="h" id="search">
+				<h2>健診サービス管理</h2>
+				<ul data-role="listview" class="jqm-menu-list" data-theme="h" data-icon="false">
+					<li><a href="newallresult.html" data-ajax="false">同意情報変更</a>
+					</li>
+				</ul>
+			</div>
+			<div data-role="collapsible" data-inset="false" data-collapsed="false" data-iconpos="right"
+				data-theme="g" data-content-theme="h" id="user">
+				<h2>ユーザ情報管理</h2>
+				<ul data-role="listview" class="jqm-menu-list" data-theme="h" data-icon="false">
+					<li><a href="loginuserup.html" data-ajax="false">利用者情報変更</a>
+					</li>
+					<li><a href="nayosetoroku.html" data-ajax="false">名寄登録</a>
+					</li>
+					<li><a href="userexit.html" data-ajax="false">利用者退会</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- MENU END -->
+	</div>
+</body>
+</html>
