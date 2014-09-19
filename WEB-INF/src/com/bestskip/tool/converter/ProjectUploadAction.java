@@ -281,12 +281,14 @@ public class ProjectUploadAction extends ActionSupport {
 		// 　既にディレクトリが存在する場合、削除してから再度作成
 		if (decompressPath.exists()) {
 			delete(decompressPath);
-			decompressPath = new File(path);
+		    decompressPath = new File(path);
 		}
-
-		if (!decompressPath.mkdir()) {
+		
+		decompressPath.mkdir();
+		
+		/*if (!decompressPath.mkdir()) {
 			throw new FileNotFoundException(decompressPath + "の生成に失敗しました。");
-		}
+		}*/
 
 		// Zip ファイルから ZipEntry を一つずつ取り出し、ファイルに保存していく。
 		ZipFile zipFile = new ZipFile(file);
