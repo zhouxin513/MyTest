@@ -22,8 +22,8 @@
         scope="prototype">
     </bean>
         
-    <!-- action class for file upload and format 20140819 -->
-    <bean id="FileUploadActionFormatter" class="com.bestskip.tool.converter.FileUploadActionFormatter"
+    <!-- action class for ProjectUpload and format 20140918 -->
+    <bean id="ProjectUploadAction" class="com.bestskip.tool.converter.ProjectUploadAction"
         scope="prototype">
     </bean>
     

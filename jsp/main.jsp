@@ -71,7 +71,7 @@
     </style>
 
 
-    <%--ソースページをロードする--%>
+    <%--main.jsp用スクリプト　--%>
     <script type="text/javascript">
 
         $(document).ready(function(){
@@ -94,6 +94,7 @@
         }
 
     </script>
+    <script src="jsp/js/dragNdrop.js"></script>
 
     <!--　　shutto社用スクリプト
 　　　 <script src="jsp/sub/dc.js" async="" type="text/javascript"></script><script id="twitter-wjs" src="jsp/sub/widgets.js" type="text/javascript"></script>
@@ -146,7 +147,7 @@
                onclick="openUploader()">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <input class="shutto-submit-button" type="button"
-               value="load uploaded page" onclick="loadPage()">
+               value="Upload test project(zip)" onclick="loadProject()">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <input class="shutto-submit-button" type="button"
                value="get page elements" onclick="convertPage()">
@@ -350,9 +351,9 @@
     <div>
         <!--追加されるコンテンツ表示領域-->
         <div id="shutto-preview" >
-                <iframe id="templateIframe" src="jsp/phr/html/loginmain1-test.html" style=
+                <iframe id="templateIframe" src="jsp/phr/html/mobile-template001.html" style=
                         "position:absolute;top:0px;bottom:0px;width: 100%;height: 100%;border: none;border-radius: 3px 3px 0 0;overflow: auto;margin: 0;padding: 0;">
-                 </iframe>
+                </iframe>
         <%--jqury mobile 作成テスト　END--%>
         </div>
     </div>
@@ -434,7 +435,7 @@
     </div>
 
     <div class="content">
-        <iframe <%-- src="http://dinbror.dk/blog"--%> class="b-iframe" frameborder="0" scrolling="yes" style="display: none" ></iframe>
+        <iframe <%-- src="http://dinbror.dk/blog"--%><%-- class="b-iframe" frameborder="0" scrolling="yes"--%> style="display: none" ></iframe>
     </div>
 </div>
 

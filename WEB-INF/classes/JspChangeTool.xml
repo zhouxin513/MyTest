@@ -28,18 +28,18 @@
         
         
         
-        <!-- file upload and format action start 20140819-->
+        <!--upload project and unzip action start 20140919-->
 
-        <action name ="FileUploadFormat" class ="FileUploadActionFormatter" method="upload">
+        <action name ="ProjectUpload" class ="ProjectUploadAction" method="upload">
             <param name="savePath">/fileUpload</param> <!-- pass the file savepath param to the action -->
             <result name ="success">/jsp/result.jsp</result> <!-- this result do nothing -->
         </action >
-        <action name ="SubmitFormat" class ="FileUploadActionFormatter" method="submit">
+        <action name ="SubmitProject" class ="ProjectUploadAction" method="submit">
             <param name="savePath">/fileUpload</param> <!-- pass the file savepath param to the action -->
             <result name ="success">/jsp/result.jsp</result>
         </action >
 
-        <!-- Plupload Queue Widget action end -->
+        <!--upload project and unzip action end 20140919 -->
         
         
         

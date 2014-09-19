@@ -111,7 +111,7 @@ public class FileUploadAction_0829 extends ActionSupport {
 			普通のCassandraに接続方法　*/
 
 			//　CassandraDAOの方法で
-			CassandraDAO cassandraDAO = new CassandraDAO();
+			CassandraDAO_0918 cassandraDAO = new CassandraDAO_0918();
 			
 			//　実行予定CQL文
 			StringBuilder cql_insert = new StringBuilder();

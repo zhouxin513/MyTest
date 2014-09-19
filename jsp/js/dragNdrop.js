@@ -127,6 +127,13 @@ function openUploader() {
     //var childWin = window.open("childWin.html", "_blank", "height=400, width=550, status=yes, toolbar=no, menubar=no, location=no,addressbar=no);
 }
 
+function loadProject(){
+    var childWin = window.open('jsp/upload_QueueWidget_zip.jsp', 'FileUploadWindow', 'width=850, height=600,scrollbars=yes');
+    //var childWin = window.open("childWin.html", "_blank", "height=400, width=550, status=yes, toolbar=no, menubar=no, location=no,addressbar=no);
+
+}
+
+
 
 function preview() {
     //var contentUrl = document.getElementById("templateIframe").contentWindow.location.href;

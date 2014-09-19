@@ -73,40 +73,7 @@ public class CassandraDAO {
 		cluster.close();
 	}
 
-	/*public ResultSet execute(String CQL, ArrayList<CassandraObj> paramList)
-			throws ParseException {
-
-		RegularStatement toPrepare = (RegularStatement) new SimpleStatement(CQL)
-				.setConsistencyLevel(ConsistencyLevel.QUORUM);
-		PreparedStatement prepared = session.prepare(toPrepare);
-		BatchStatement batch = new BatchStatement();
-
-		if (paramList != null && paramList.size() != 0) {
-
-			Object[] inputObj = new Object[paramList.size()];
-			for (int i = 0; i < paramList.size(); i++) {
-
-				CassandraObj obj = paramList.get(i);
-
-				if (CassandraDAO.TYPE_TIMESTAMP.equals(obj.getType())) {
-					SimpleDateFormat dateFormat = new SimpleDateFormat(
-							"yyyy-MM-dd HHmmSS");
-					inputObj[i] = dateFormat.parse(obj.getValue());
-				} else if (CassandraDAO.TYPE_FLOAT.equals(obj.getType())) {
-					inputObj[i] = Float.valueOf(obj.getValue());
-				} else {
-					inputObj[i] = paramList.get(0).getValue();
-				}
-
-			}
-			batch.add(prepared.bind(inputObj));
-			return session.execute(batch);
-		} else {
-			return session.execute(CQL);
-		}
-
-	}*/
-
+	
 	
 	public ResultSet executeByObject(String CQL, ArrayList<Object> paramList)
 			throws ParseException {
@@ -132,87 +99,5 @@ public class CassandraDAO {
 
 	}
 	 
-
-	
-	
-	/*
-	public class preparStatment {
-	private static final String CQL = null;
-	RegularStatement toPrepare = (RegularStatement) new SimpleStatement(CQL)
-			.setConsistencyLevel(ConsistencyLevel.QUORUM);
-	PreparedStatement prepared = session.prepare(toPrepare);
-	
-	}
-	
-	Session session = sessionProvider.getSession();
-	try {
-	PreparedStatement ps = session.prepare(cql);
-	ResultSet rs = session.execute(ps.bind(objects));
-	if (irsr != null) {
-	irsr.read(rs);
-	}
-	}
-	
-
-	public ResultSet executeByObject(String CQL, ArrayList<Object> paramList)
-			throws ParseException {
-		BatchStatement batch = new BatchStatement();
-
-		if (paramList != null && paramList.size() != 0) {
-
-			Object[] inputObj = new Object[paramList.size()];
-			for (int i = 0; i < paramList.size(); i++) {
-
-				inputObj[i] = paramList.get(i);
-			}
-			batch.add(prepared.bind(inputObj));
-			return session.execute(batch);
-		} else {
-			return session.execute(CQL);
-		}
-
-	}
-	
-	*/
-	
-	
-	
-	
-	/*
-
-	public ResultSet selectAll(String CQL, ArrayList<CassandraObj> paramList)
-			throws ParseException {
-
-		RegularStatement toPrepare = (RegularStatement) new SimpleStatement(CQL)
-				.setConsistencyLevel(ConsistencyLevel.QUORUM);
-		PreparedStatement prepared = session.prepare(toPrepare);
-		BatchStatement batch = new BatchStatement();
-
-		if (paramList != null && paramList.size() != 0) {
-
-			Object[] inputObj = new Object[paramList.size()];
-			for (int i = 0; i < paramList.size(); i++) {
-
-				CassandraObj obj = paramList.get(i);
-
-				if (CassandraDAO.TYPE_TIMESTAMP.equals(obj.getType())) {
-					SimpleDateFormat dateFormat = new SimpleDateFormat(
-							"yyyy-MM-dd HHmmSS");
-					inputObj[i] = dateFormat.parse(obj.getValue());
-				} else if (CassandraDAO.TYPE_FLOAT.equals(obj.getType())) {
-					inputObj[i] = Float.valueOf(obj.getValue());
-				} else {
-					inputObj[i] = paramList.get(0).getValue();
-				}
-
-			}
-			batch.add(prepared.bind(inputObj));
-			return session.execute(batch);
-		} else {
-			return session.execute(CQL);
-		}
-
-	}
-*/
 
 }

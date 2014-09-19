@@ -10,14 +10,16 @@
 	<link rel="stylesheet" href="../css/common.css">
 	<link rel="stylesheet" href="../css/font-awesome.min.css">
 	<script src="../jquery/js/jquery.js"></script>
+
 	<script src="../jquery/js/jquery.mobile-1.3.2.min.js"></script>
+    <script src="../js/dragNdrop.js"></script>
 	
 	<script type="text/javascript">
 		var agent = navigator.userAgent.toLowerCase() ;
 
 			if ((agent.indexOf("win") != -1) ) {
 			
-				alert(agent);
+				/*alert(agent);*/
 			}
 		$(document).on('blur', 'input, textarea', function() {
 		    setTimeout(function() {
@@ -31,10 +33,10 @@
   	<div data-role="page" id="login-page" data-theme="c"
 		data-url="login-page">
 		<div data-role="header" data-theme="g" data-tap-toggle="false" data-position="fixed"
-			id="header" class="jqm-header">
+			id="header" class="jqm-header" ondrop="drop(event)" ondragover="allowDrop(event)">
 			<h1 style="margin-left:10px;">ヘッダー</h1>
 		</div>
-   		<div data-role='content' id="contents">
+   		<div data-role='content' id="contents" ondrop="drop(event)" ondragover="allowDrop(event)">
   			<form>
 				<div id="inputarea"  align="center">
 					<ul data-role="listview" data-inset="true" data-theme="h">
@@ -55,7 +57,7 @@
                     </div>
 			</form>
    		</div>
-   		<div data-role='footer' class="jqm-footer">
+   		<div data-role='footer' class="jqm-footer" ondrop="drop(event)" ondragover="allowDrop(event)">
    			フッター
    		</div> 	
    	</div>
