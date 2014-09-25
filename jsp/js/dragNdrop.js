@@ -25,16 +25,16 @@ function drop(ev) {
      */
 
     /*iframeのエレメントIDを取得し、別のiframeにコピーする 方法*/
-    ev.target.appendChild(window.parent.document.getElementById("shutto-source").contentWindow.document.getElementById(data).cloneNode(true));
+    var node = ev.target.appendChild(window.parent.document.getElementById("shutto-source").contentWindow.document.getElementById(data).cloneNode(true));
 
-    var node = document.getElementById(data);
+    //var node = document.getElementById(data);
 
     var uniqueID2 = "mobile-" + data;
 
     // 新規追加ロードに属性やスタイル、アクションなどを定義する
     $(node).css({
         "color": "red",
-        "border": "1px solid red",
+        "border": "1px solid #a6d220",
         "width": "100%"
 
     });
@@ -49,33 +49,19 @@ function drop(ev) {
     $(node).contextMenu('myMenu2', {
 
         menuStyle: {
-
             border: '2px solid #000'
-
         },
-
         itemStyle: {
-
             fontFamily: 'verdana',
-
             backgroundColor: '#666',
-
             color: 'white',
-
             border: 'none',
-
             padding: '1px'
-
         },
-
         itemHoverStyle: {
-
             color: '#fff',
-
             backgroundColor: '#0f0',
-
             border: 'none'
-
         }
 
     });//contextMenu end.
@@ -95,27 +81,44 @@ function convertPage() {
         //alert(y[j].nodeValue);
         //if(ifrItems[j].id == "drop-box")continue;
 
+        // ランダムIDを作成する
         var uniqueNum = Math.floor(Math.random() * 99999);
         var uniqueID = 'id-' + String(uniqueNum);
         //elementsに「id」があるかどうかを判断する必要がある
         // alert(j + ' :' + uniqueID);
+        /*
+        //　スタイルを変更する
         $(ifrItems[j]).css({
-            "color": "red",
-            "border": "1px solid red"
-        });
+            "display": "block",
+        "width": "50%",
+        "font-weight": "400",
+        "margin-bottom": "1em",
+        "overflow": "hidden",
+        "padding-top": "1.4em",
+        "padding-right": "2em",
+        "box-sizing": "border-box",
+        "-moz-box-sizing": "border-box",
+        "float": "left"
+        });*/
+
+        //　属性を変更する
         $(ifrItems[j]).attr({
             "draggable": "true",
             "ondragstart": "window.parent.drag(event)",
             "id": uniqueID
         });
+
+        //　イベントを追加する
         $(ifrItems[j]).mouseover(function(){
-            this.style.backgroundColor = "yellow";
-            this.style.border = "0px solid red"
+            this.style.backgroundColor = "#fcffb3";
+            //this.style.border = "3px solid #a6d220 !important";
+            //this.style.color = "#a6d220";
+            //this.style.cursor = "pointer";
 
         });
         $(ifrItems[j]).mouseout(function(){
-            this.style.backgroundColor = "white";
-            this.style.border = "0px solid white"
+            this.style.backgroundColor = "lightgray";
+            //this.style.border = "0px solid lightgray";
         });
     }
 
