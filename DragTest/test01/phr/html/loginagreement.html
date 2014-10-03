@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>利用規約</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta name="format-detection" content="telephone=no">
+	<meta http-equiv="description" content="this is my page">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="../jquery/css/jquery.mobile-theme.min.css">
+	<link rel="stylesheet" href="../css/common.css">
+	<link rel="stylesheet" href="../css/font-awesome.min.css">
+	<script src="../jquery/js/jquery.js"></script>
+	<script src="../jquery/js/jquery.mobile-1.3.2.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$.mobile.buttonMarkup.hoverDelay = "false";
+		$("#checkbox-0").change(function() { 
+			if($("#checkbox-0").prop("checked")==true){
+				$("#nextBtn").removeClass("ui-disabled");
+
+			}else{
+			$("#nextBtn").addClass("ui-disabled");
+
+			}
+		});
+		
+	});
+	
+</script>
+  </head>
+  
+  <body>
+  	<div data-role="page" id="login-page" data-theme="c"
+		data-url="login-page">
+		<div data-role="header" data-theme="g" data-tap-toggle="false" data-position="fixed"
+			id="header" class="jqm-header">
+			<h1 style="margin-left:10px;">利用規約</h1>
+		</div>
+		<div data-role="content">
+				<textarea name="textarea" id="textarea" readonly="readonly"> 
+　　　利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規
+約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利
+　　用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規
+
+　　約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約利用規約
+				</textarea>
+				<label class="jqm-checkbox">
+					<input type="checkbox" name="checkbox-0" id="checkbox-0" class="jqm-checkbtn">同意します
+				</label>
+			<div style="height:30px;margin-top:15px;">
+		 		<a href="javascript:history.go(-1);" data-role="button" class="jqm-left-btn ui-btn ui-shadow ui-btn-corner-all ui-btn-up-i" data-theme="i">戻る</a>
+		 		<a href="loginnew.html" data-ajax="false" data-role="button" id="nextBtn" class="jqm-right-btn jqm-mottoyomu ui-btn ui-shadow ui-btn-corner-all ui-btn-up-i ui-disabled" data-theme="i">次へ</a>
+		 	</div>
+		</div>
+		<div data-role='footer' class="jqm-footer">
+   			<p>© Copyright 2013</p>
+   		</div> 	
+  </div>
+	  
+  </body>
+</html>

@@ -27,5 +27,10 @@
         scope="prototype">
     </bean>
     
+    <!-- action class for ProjectUpload and format 20140918 -->
+    <bean id="CreateTemplateAction" class="com.bestskip.tool.converter.CreateTemplateAction"
+        scope="prototype">
+    </bean>
+    
     
 </beans>

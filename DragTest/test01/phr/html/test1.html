@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>DCライトサービス</title>
+
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="description" content="this is my page">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../jquery/css/jquery.mobile-theme.min.css">
+<link rel="stylesheet" href="../jquery/css/flexslider.css">
+<link rel="stylesheet" href="../css/common.css">
+<script src="../jquery/js/jquery-1.7.1.min.js"></script>
+<script src="../jquery/js/jquery.mobile-1.3.2.min.js"></script>
+<script src="../jquery/js/jquery.flexslider.js"></script>
+<script src="../jquery/js/iscroll.js"></script>
+<script type="text/javascript">
+        var myScroll;
+        var pullDownEl;
+        var pullDownOffset;
+        var pullUpEl;
+        var pullUpOffset;
+        var count = 0;
+        function pullDownAction() {//スライドアップ
+                setTimeout(function() {
+						/*
+							$('#add').prepend($('<li data-theme="h"><a href="oshiraseinfo.html" data-ajax="false"><p>2015/10/21</p><p>【重要】22最新の知らせが来ています</p></a></li>')); 
+                        */
+						
+						jQuery($('<li data-theme="h"><a href="oshiraseinfo.html" data-ajax="false"><p>2015/10/21</p><p>【重要】22最新の知らせが来ています</p></a></li>')).insertAfter($('#add li:first'));
+						myScroll.refresh();
+						$('#add').listview('refresh');
+                }, 1000); //1秒
+        }
+        function pullUpAction() {//スライドダウンロード
+                setTimeout(function() {
+
+$('<li data-theme="h"><a href="oshiraseinfo.html" data-ajax="false"><p>2015/10/21</p><p>【重要】455522最新の知らせが来ています</p></a></li>').appendTo($('#add')); 
+                        myScroll.refresh();
+						$('#add').listview('refresh');
+                }, 1000);
+        }
+        function loaded() {//ロード完了
+                pullDownEl = document.getElementById('pullDown');
+                pullDownOffset = pullDownEl.offsetHeight;
+                pullUpEl = document.getElementById('pullUp');
+                pullUpOffset = pullUpEl.offsetHeight;
+                myScroll = new iScroll(
+                                'wrapper',
+                                {
+                                        useTransition : true,
+                                        topOffset : pullDownOffset,
+                                        onRefresh : function() {
+                                                if (pullDownEl.className.match('loading')) {
+                                                        pullDownEl.className = '';
+                                                        pullDownEl.querySelector('.pullDownLabel').innerHTML = '最新のお知らせの取得...';
+                                                } else if (pullUpEl.className.match('loading')) {
+                                                        pullUpEl.className = '';
+                                                        pullUpEl.querySelector('.pullUpLabel').innerHTML = '更に表示...';
+                                                }
+                                        },
+                                        onScrollMove : function() {
+                                                if (this.y > 5 && !pullDownEl.className.match('flip')) {
+                                                        pullDownEl.className = 'flip';
+                                                        pullDownEl.querySelector('.pullDownLabel').innerHTML = '更新中...';
+                                                        this.minScrollY = 0;
+                                                } else if (this.y < 5
+                                                                && pullDownEl.className.match('flip')) {
+                                                        pullDownEl.className = '';
+                                                        pullDownEl.querySelector('.pullDownLabel').innerHTML = '更新中...';
+                                                        this.minScrollY = -pullDownOffset;
+                                                } else if (this.y < (this.maxScrollY - 5)
+                                                                && !pullUpEl.className.match('flip')) {
+                                                        pullUpEl.className = 'flip';
+                                                        pullUpEl.querySelector('.pullUpLabel').innerHTML = '更新中...';
+                                                        this.maxScrollY = this.maxScrollY;
+                                                } else if (this.y > (this.maxScrollY + 5)
+                                                                && pullUpEl.className.match('flip')) {
+                                                        pullUpEl.className = '';
+                                                        pullUpEl.querySelector('.pullUpLabel').innerHTML = '更新...';
+                                                        this.maxScrollY = pullUpOffset;
+                                                }
+                                        },
+                                        onScrollEnd : function() {
+                                                if (pullDownEl.className.match('flip')) {
+                                                        pullDownEl.className = 'loading';
+                                                        pullDownEl.querySelector('.pullDownLabel').innerHTML = '更新中...';
+                                                        pullDownAction(); // Execute custom function (ajax call?)
+                                                } else if (pullUpEl.className.match('flip')) {
+                                                        pullUpEl.className = 'loading';
+                                                        pullUpEl.querySelector('.pullUpLabel').innerHTML = '更新中...';
+                                                        pullUpAction(); // Execute custom function (ajax call?)
+                                                }
+                                        }
+                                });
+
+                setTimeout(function() {
+                        document.getElementById('wrapper').style.left = '0';
+                }, 800);
+        }
+
+        document.addEventListener('touchmove', function(e) {
+                e.preventDefault();
+        }, false);
+
+        document.addEventListener('DOMContentLoaded', function() {
+                setTimeout(loaded, 200);
+        }, false);
+		
+		
+		$("body").live('swiperight', function() {
+			$('#menushow').click();
+		});
+</script>
+<style type="text/css" media="all">
+
+.pclass {
+font-size: 18px;
+display: block;
+margin: .3em 0 0 10px;
+text-overflow: ellipsis;
+overflow: hidden;
+white-space: nowrap;
+}
+
+.hclass {
+font-size: 18px;
+font-weight: 700;
+display: block;
+margin: .1em 0 0 10px;
+text-overflow: ellipsis;
+overflow: hidden;
+white-space: nowrap;
+}
+
+#wrapper {
+        position: absolute;
+        z-index: 1;
+        top: 25px;
+        bottom: 0px;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        padding: 0px;
+}
+
+#scroller {
+        position: absolute;
+        z-index: 1;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        width: 100%;
+        padding: 0;
+}
+
+#pullDown,#pullUp {
+        background: #fff;
+        height: 40px;
+        line-height: 40px;
+        padding: 5px 10px;
+        border-bottom: 1px solid #ccc;
+        font-weight: bold;
+        font-size: 14px;
+        color: #888;
+}
+
+#pullDown .pullDownIcon,#pullUp .pullUpIcon {
+        display: block;
+        float: left;
+        width: 40px;
+        height: 40px;
+        background: url(./img/pull-icon@2x.png) 0 0 no-repeat;
+        -webkit-background-size: 40px 80px;
+        background-size: 40px 80px;
+        -webkit-transition-property: -webkit-transform;
+        -webkit-transition-duration: 250ms;
+}
+
+#pullDown .pullDownIcon {
+        -webkit-transform: rotate(0deg) translateZ(0);
+}
+
+#pullUp .pullUpIcon {
+        -webkit-transform: rotate(-180deg) translateZ(0);
+}
+
+#pullDown.flip .pullDownIcon {
+        -webkit-transform: rotate(-180deg) translateZ(0);
+}
+
+#pullUp.flip .pullUpIcon {
+        -webkit-transform: rotate(0deg) translateZ(0);
+}
+
+#pullDown.loading .pullDownIcon,#pullUp.loading .pullUpIcon {
+        background-position: 0 100%;
+        -webkit-transform: rotate(0deg) translateZ(0);
+        -webkit-transition-duration: 0ms;
+        -webkit-animation-name: loading;
+        -webkit-animation-duration: 2s;
+        -webkit-animation-iteration-count: infinite;
+        -webkit-animation-timing-function: linear;
+}
+
+@
+-webkit-keyframes loading {from { -webkit-transform:rotate(0deg)translateZ(0);
+        
+}
+
+to {
+        -webkit-transform: rotate(360deg) translateZ(0);
+}
+}
+</style>
+</head>
+<body>
+        <div data-role="page" data-theme="c">
+            <!-- HEADER START -->
+			<div data-role="header"  data-theme="g"  id="header" data-tap-toggle="false" class="jqm-header" data-position="fixed">
+				<a href="#left-panel" data-icon="bars" data-iconpos="notext" data-theme="c" class="jqm-menu"
+				data-shadow="false" data-iconshadow="false" id="menushow" >メニュー</a>
+				<table align="center" width="70%" border="1">
+					<tr>
+						<td rowspan="2" width="20%" align="center">DCライト</br>サービス</td>
+						<td width="25%">お客様契約番号</td>
+						<td width="25%">123567890o</td>
+						<td rowspan="2" width="35%" align="center">2014/01/31</td>
+					</tr>
+					<tr>
+						<td>お客様契約名称</td>
+						<td>説明文書</td>
+					</tr>
+				</table>
+				<a href="error.html" data-ajax="false" data-role="button" class="ui-btn-right jqm-btn-a" data-theme="c"
+				data-transition="fade">ログアウト</a>
+				
+			</div>
+		
+		<!-- HEADER END -->
+			<div id="title" data-role="title" width="100%">
+				<table width="100%">
+					<tr>
+						<td align="left"><lable class="ui-btn-left jqm-btn-a"><h3>お知らせ</h3></lable></td>
+						<td align="right"><a href="#mypanel" class="ui-btn-bottom jqm-btn-a" id="menushow" >説明文書</a></td>
+					</tr>
+				</table>
+				
+				
+			</div>
+			
+			<div data-role="panel" id="mypanel" data-position="right" data-display="overlay">
+				<!-- panel content goes here -->
+				<div>以下は説明文書です</div>
+			</div>
+				
+			<div id="wrapper" data-role="content">
+				<div id="scroller">
+					<div id="pullDown">
+						<span class="pullDownIcon"></span> <span class="pullDownLabel">ロード...</span>
+					</div>
+					<ul id="add" data-role="listview" data-split-icon="delete">
+					<li data-theme="h">
+						<a href="oshiraseinfo.html" data-ajax="false">
+							<p>2013/10/21</p>
+							<p>【重要】健診フォローが来ています</p>
+						</a>
+					</li>
+					<li data-theme="h">
+						<a href="oshiraseinfo.html" data-ajax="false">
+							<p>2013/10/22</p>
+							<p>国民健康研究機関からのお知らせ国民健康研究機関からのお知らせ</p>
+						</a>
+					</li>	
+					<li data-theme="h">
+						<a href="test2.html" data-ajax="false">
+							<p>2013/10/22</p>
+							<p>入力テスト</p>
+						</a>
+					</li>	
+					<li data-theme="h">
+						<a href="oshiraseinfo.html" data-ajax="false">
+							<p>2013/10/22</p>
+							<p>国民健康研究機関からのお知らせ</p>
+						</a>
+					</li>	
+					<li data-theme="h">
+						<a href="oshiraseinfo.html" data-ajax="false">
+							<h class="hclass">2013/10/22</h>
+							<h class="hclass">国民健康研究機関からのお知らせ</h>
+							<p class="pclass">国民健康研究機関からのお知らせ国民健康研究機関からのお知らせ国民健康研究機関からのお知らせ国民健康研究機関からのお知らせ国民健康研究機関からのお知らせ国民健康研究機関からのお知らせ国民健康研究機関からのお知らせ国民健康研究機関からのお知らせ国民健康研究機関からのお知らせ</p>
+						</a>
+					</li>	
+					<li data-theme="h">
+						<a href="oshiraseinfo.html" data-ajax="false">
+							<p>2013/10/22</p>
+							<p>国民健康研究機関からのお知らせ国民健康研究機関からのお知らせ</p>
+						</a>
+					</li>	
+					<li data-theme="h">
+						<a href="oshiraseinfo.html" data-ajax="false">
+							<p>2013/10/22</p>
+							<p>国民健康研究機関からのお知らせ国民健康研究機関からのお知らせ国民健康研究機関からのお知らせ国民健康研究機関からのお知らせ</p>
+						</a>
+					</li>	
+					<li data-theme="h">
+						<a href="oshiraseinfo.html" data-ajax="false">
+							<p>2013/10/22</p>
+							<p>国民健康研究機関からのお知らせ</p>
+						</a>
+					</li>	
+					<li  data-theme="h">
+						<a href="oshiraseinfo.html" data-ajax="false">
+							<p>2013/10/22</p>
+							<p>国民健康研究機関からのお知らせ国民健康研究機関からのお知らせ国民健康研究機関からのお知らせ</p>
+						</a>
+					</li>	
+					
+				</ul>
+                                <div id="pullUp">
+                                        <span class="pullUpIcon"></span><span class="pullUpLabel">次の２０件を読み込む...</span>
+                                </div>
+                        </div>
+                </div>
+				<!-- MENU START -->
+		<div data-role="panel" id="left-panel" data-theme="a">
+			<div data-role="collapsible" class="jqm-menu-list" data-inset="false" data-collapsed="false" data-iconpos="right"
+				data-theme="g"  id="top">
+				<h2>TOP画面</h2>
+				<ul data-role="listview" class="jqm-menu-list" data-icon="false">
+					<li><a href="top.html"  data-ajax="false">TOP画面へ</a>
+					</li>
+				</ul>
+			</div>
+			<div data-role="collapsible" data-inset="false" data-collapsed="false" data-iconpos="right"
+				data-theme="g" id="kensin">
+				<h2>データ送受信</h2>
+				<ul data-role="listview" class="jqm-menu-list" data-icon="false">
+					<li><a href="kensinlist.html" data-ajax="false" >アイル送信指示</a>
+					</li>
+					<li><a href="searchservice.html" data-ajax="false" >アイル受信指示</a>
+					</li>
+					<li><a href="loginmedical.html" data-ajax="false" >アイルXXXXXX</a>
+					</li>
+				</ul>
+			</div>
+			<div data-role="collapsible" data-inset="false" data-collapsed="false" data-iconpos="right"
+				data-theme="g" id="search">
+				<h2>お知らせ</h2>
+				<ul data-role="listview" class="jqm-menu-list" data-icon="false">
+					<li><a href="test1.html" data-ajax="false">お知らせ一覧</a>
+					</li>
+					<li><a href="test2.html" data-ajax="false">お知らせ作成</a>
+					</li>
+				</ul>
+			</div>
+			<div data-role="collapsible" data-inset="false" data-collapsed="false" data-iconpos="right"
+				data-theme="g" id="user">
+				<h2>C-tool</h2>
+				<ul data-role="listview" class="jqm-menu-list" data-icon="false">
+					<li><a href="loginuserup.html" data-ajax="false">XXXX</a>
+					</li>
+					<li><a href="nayosetoroku.html" data-ajax="false">XXXX</a>
+					</li>
+					<li><a href="userexit.html" data-ajax="false">XXXX</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- MENU END -->
+		   		<div data-role='footer' class="jqm-footer">
+   			<p>© Copyright 2013</p>
+   		</div> 	
+        </div>
+</body>
+</html>

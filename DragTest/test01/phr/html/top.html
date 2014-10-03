@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>健康管理支援</title>
+
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="description" content="this is my page">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../jquery/css/jquery.mobile-theme.min.css">
+<link rel="stylesheet" href="../jquery/css/flexslider.css">
+<link rel="stylesheet" href="../css/common.css">
+<script src="../jquery/js/jquery-1.7.1.min.js"></script>
+<script src="../jquery/js/jquery.mobile-1.3.2.min.js"></script>
+<script src="../jquery/js/jquery.flexslider.js"></script>
+<script src="../jquery/js/iscroll.js"></script>
+  <style>
+  	ol, ul {list-style: none;}
+  	#manager{
+    	margin-top:-20px;
+    }
+    #tubiao{
+    	float:left;
+    }
+    .navbar {
+      overflow: hidden
+    }
+	
+	.ui-panel {  
+    width: 23em;  
+}  
+.ui-panel-position-left {  
+    left: -66em;  
+}  
+/* positioning: content wrap, fixed toolbars and dismiss */  
+/* panel left open */  
+.ui-panel-content-fixed-toolbar-position-left.ui-panel-content-fixed-toolbar-open,  
+.ui-panel-content-wrap-position-left.ui-panel-content-wrap-open,  
+.ui-panel-dismiss-position-left.ui-panel-dismiss-open {  
+    left: 23em;  
+    right: -23em;  
+}  
+/* animated: panel left open (for reveal and push) */  
+.ui-panel-animate.ui-panel-content-fixed-toolbar-position-left.ui-panel-content-fixed-toolbar-open.ui-panel-content-fixed-toolbar-display-reveal,  
+.ui-panel-animate.ui-panel-content-fixed-toolbar-position-left.ui-panel-content-fixed-toolbar-open.ui-panel-content-fixed-toolbar-display-push,  
+.ui-panel-animate.ui-panel-content-wrap-position-left.ui-panel-content-wrap-open.ui-panel-content-wrap-display-reveal,  
+.ui-panel-animate.ui-panel-content-wrap-position-left.ui-panel-content-wrap-open.ui-panel-content-wrap-display-push {  
+    -webkit-transform: translate3d(23em,0,0);  
+    -moz-transform: translate3d(23em,0,0);  
+    transform: translate3d(23em,0,0);  
+}  
+  </style>
+  <script type="text/javascript">
+  
+  	$(function(){
+  		$.mobile.buttonMarkup.hoverDelay = "false";
+		  
+  	});
+  	$(window).load(function() {
+		$('.flexslider').flexslider();
+	});
+	
+	$("#contents").click(function() {
+		$('#contentDetail').html("");
+		$('#contentDetail').css('display', 'none');
+	});
+	
+	function aaa() {
+		$.ajax({
+			type: 'GET',
+			url: 'newsDetail.html',
+			dataType: 'html',
+			success: function(data) {
+				$('#contentDetail').html(data);
+			},
+			error:function() {
+				alert('問題がありました。');
+			}
+		});
+	}
+	
+	$("body").live('swipeleft', function() {
+			alert("後ページへ移動");
+	});
+	
+	$("body").live('swiperight', function() {
+			alert("111");
+			$('#menushow').click();
+	});
+	
+	function bbb() {
+		alert("111");
+		$.mobile.changePage("oshiraseinfo.html","slideright",false,false);
+	}
+	
+  </script>
+</head>
+<body>
+	
+	<div data-role="page" data-theme="c"
+		data-url="top-page">
+		<!-- HEADER START -->
+		<div data-role="header"  data-theme="g"  id="header" data-tap-toggle="false" class="jqm-header" data-position="fixed">
+			<a href="#left-panel" data-icon="bars" data-iconpos="notext" data-theme="c" class="jqm-menu" id="menushow"
+				data-shadow="false" data-iconshadow="false" >メニュー</a>
+				<h1><table>
+				<tr><th>XXXXXプロジェクト</th></tr>
+			</table>
+			</h1>
+			
+			<a href="error.html" data-ajax="false" data-role="button" class="ui-btn-right jqm-btn-a" data-theme="c"
+				data-transition="fade">ログアウト</a>
+		</div>
+		
+		<!-- HEADER END -->
+		<!-- CONTENT START -->
+		<div id="contentDetail" data-position="right" data-display="overlay" with="300" data-role="panel" >aaaaaaaaa</div>
+		<div data-role="content" id = "content">	
+			<!-- MANAGER START -->
+		 	<div id="manager" class="jqm-region">
+		 		<ul data-role="listview">
+					<li data-role="list-divider" data-theme="h">お知らせ</li>
+					<li data-theme="h">
+						<a href="oshiraseinfo.html" data-transition="slide">
+							<p>2013/10/21</p>
+							<p>【重要】健診フォローが来ています</p>
+						</a>
+					</li>
+					<li data-theme="h">
+						<a href="#contentDetail" onclick="aaa()"; data-ajax="true">
+							<p>2013/10/22</p>
+							<p>国民健康研究機関からのお知らせ国民健康研究機関からのお知らせ</p>
+						</a>
+					</li>	
+					<li data-theme="h">
+						<span class="anchor" onclick="bbb()" data-ajax="false">
+							<p>2013/10/22</p>
+							<p>国民333333333機関からのお知らせ国民健康研究機関からのお知らせ</p>
+						</span>
+					</li>	
+					<li data-theme="h">
+						<a href="oshiraseinfo.html" data-ajax="false">
+							<p>2013/10/22</p>
+							<p>国民健康研究機関からのお知らせ</p>
+						</a>
+					</li>	
+					<li data-theme="h">
+						<a href="oshiraseinfo.html" data-ajax="false">
+							<p>2013/10/22</p>
+							<p>国民健康研究機関からのお知らせ国民健康研究機関からのお知らせ国民健康研究機関からのお知らせ</p>
+						</a>
+					</li>	
+					<li data-theme="h">
+						<a href="oshiraseinfo.html" data-ajax="false">
+							<p>2013/10/22</p>
+							<p>国民健康研究機関からのお知らせ国民健康研究機関からのお知らせ</p>
+						</a>
+					</li>	
+					<li data-theme="h">
+						<a href="oshiraseinfo.html" data-ajax="false">
+							<p>2013/10/22</p>
+							<p>国民健康研究機関からのお知らせ国民健康研究機関からのお知らせ国民健康研究機関からのお知らせ国民健康研究機関からのお知らせ</p>
+						</a>
+					</li>	
+					<li data-theme="h">
+						<a href="oshiraseinfo.html" data-ajax="false">
+							<p>2013/10/22</p>
+							<p>国民健康研究機関からのお知らせ</p>
+						</a>
+					</li>	
+					<li  data-theme="h">
+						<a href="oshiraseinfo.html" data-ajax="false">
+							<p>2013/10/22</p>
+							<p>国民健康研究機関からのお知らせ国民健康研究機関からのお知らせ国民健康研究機関からのお知らせ</p>
+						</a>
+					</li>	
+					
+				</ul>
+		 	</div>
+		 	<!-- MANAGER END -->
+		 </div>
+		<!-- MENU START -->
+		<div data-role="panel" id="left-panel" data-display="slide" data-theme="c">
+			<div data-role="collapsible" class="jqm-menu-list" data-inset="false" data-collapsed="false" data-iconpos="right"
+				data-theme="g" data-content-theme="h" id="top">
+				
+				<h2>TOP画面</h2>
+				<ul data-role="listview" class="jqm-menu-list" data-theme="h" data-icon="false">
+					<li><a href="top.html"  data-ajax="false">TOP画面へ</a>
+					</li>
+				</ul>
+			</div>
+			<div data-role="collapsible" data-inset="false" data-collapsed="false" data-iconpos="right"
+				data-theme="g" data-content-theme="h" id="kensin">
+				<h2>データ管理</h2>
+				<ul data-role="listview" class="jqm-menu-list" data-theme="h" data-icon="false">
+					<li><a href="kensinlist.html" data-ajax="false" >健診データ閲覧・変更</a>
+					</li>
+					<li><a href="searchservice.html" data-ajax="false" >個別健康サービス検索</a>
+					</li>
+					<li><a href="loginmedical.html" data-ajax="false" >健診データ登録</a>
+					</li>
+				</ul>
+			</div>
+			<div data-role="collapsible" data-inset="false" data-collapsed="false" data-iconpos="right"
+				data-theme="g" data-content-theme="h" id="search">
+				<h2>健診サービス管理</h2>
+				<ul data-role="listview" class="jqm-menu-list" data-theme="h" data-icon="false">
+					<li><a href="newallresult.html" data-ajax="false">同意情報変更</a>
+					</li>
+				</ul>
+			</div>
+			<div data-role="collapsible" data-inset="false" data-collapsed="false" data-iconpos="right"
+				data-theme="g" data-content-theme="h" id="user">
+				<h2>ユーザ情報管理</h2>
+				<ul data-role="listview" class="jqm-menu-list" data-theme="h" data-icon="false">
+					<li><a href="loginuserup.html" data-ajax="false">利用者情報変更</a>
+					</li>
+					<li><a href="nayosetoroku.html" data-ajax="false">名寄登録</a>
+					</li>
+					<li><a href="userexit.html" data-ajax="false">利用者退会</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- MENU END -->
+	</div>
+</body>
+</html>

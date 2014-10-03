@@ -42,6 +42,12 @@
         <!--upload project and unzip action end 20140919 -->
         
         
+        <!--create template action start 20141003 -->
+         <action name="preview" class="CreateTemplateAction" method="execute">
+                <result name ="success">/jsp/result.jsp</result>
+         </action>
+        <!--create template action end 20141003 -->
+        
         
         
 

@@ -485,6 +485,33 @@ body[data-route-over-capacity="true"][data-agency] #shutto-body {
     background-color: #4f4f4f
 }
 
+/*
+#shutto-preview-container > header > #bestskip-template-button-menu {
+    position: absolute;
+    top: 3px;
+    left: 4px;
+    height: 16px;
+    font-size: 12px;
+    line-height: 12px;
+    color: #eee;
+    font-weight: bold;
+    font-family: Verdana, sans-serif;
+    cursor: pointer;
+    padding: 1px 8px 1px 24px;
+    border-radius: 2px;
+    background: url(../img/menu-button.png) 8px 3px no-repeat
+}
+*/
+
+/*#shutto-preview-container > header > #bestskip-template-button-menu:hover {
+    background-color: #a3ffbf
+    *//*background-color: #333*//*
+}
+
+#shutto-preview-container > header > #bestskip-template-button-menu.shutto-on {
+    background-color: #4f4f4f
+}*/
+
 #shutto-preview {
     width: 100%;
     min-height: 100%;

@@ -23,77 +23,231 @@
 
     <%--jquery 導入 --%>
     <script src="jsp/jquery/js/jquery-1.11.0.min.js"></script>
+
     <script src="jsp/jquery/jquery.bpopup.min.js"></script>
 
+    <script src="jsp/jquery/contextmenu/jquery.contextMenu.js" type="text/javascript"></script>
+    <script src="jsp/jquery/contextmenu/jquery.ui.position.js" type="text/javascript"></script>
+    <link href="jsp/jquery/contextmenu/jquery.contextMenu.css" rel="stylesheet" type="text/css" />
 
 
     <%--main 領域用CSS--%>
     <link rel="stylesheet" href="jsp/css/jspConvertor.css" media="screen" type="text/css">
 
+    <%--style for template-list-menu --%>
+    <style type="text/css" >
+        #shutto-preview-container > header > #bestskip-template-button-menu {
+            position: absolute;
+            top: 3px;
+            right: 140px;
+            height: 16px;
+            font-size: 12px;
+            line-height: 12px;
+            color: #eee;
+            font-weight: bold;
+            font-family: Verdana, sans-serif;
+            cursor: pointer;
+            padding: 1px 8px 1px 24px;
+            border-radius: 2px;
+            background: url(../img/menu-button.png) 8px 3px no-repeat
+        }
 
-    <style type="text/css" id="shutto-property-baloon">
+        #shutto-preview-container > header > #bestskip-template-button-menu:hover {
+            background-color: #7689ff
+            /*background-color: #333*/
+        }
+
+        #shutto-preview-container > header > #bestskip-template-button-menu.shutto-on {
+            background-color: #ff0000
+            /*background-color: #4f4f4f*/
+        }
+
+    </style>
+
+    <%--style for popup--%>
+    <style type="text/css">
         #shutto-property:before, #shutto-property:after {
             top: 139.59999084472656px
         }
-        .button.b-close, .button.bClose {
-            border-radius: 7px;
-            box-shadow: none;
-            font: bold 131% sans-serif;
-            padding: 0px 6px 2px;
-            position: absolute;
-            right: -7px;
-            top: -7px;
+        .button{
+            background-color:#2b91af;
+            border-radius:10px;
+            box-shadow:0 2px 3px rgba(0,0,0,0.3);
+            color:#fff;
+            cursor:pointer;
+            display:inline-block;
+            padding:10px 20px;
+            text-align:center;
+            text-decoration:none
         }
-        .button {
-            background-color: rgb(43, 145, 175);
-            border-radius: 10px;
-            box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
-            color: rgb(255, 255, 255);
-            cursor: pointer;
-            display: inline-block;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            -moz-text-blink: none;
-            -moz-text-decoration-color: -moz-use-text-color;
-            -moz-text-decoration-line: none;
-            -moz-text-decoration-style: solid;
+        .button.small{
+            border-radius:15px;
+            float:right;
+            margin:22px 5px 0;
+            padding:6px 15px
         }
-        #preview {
-            color: rgb(17, 17, 17);
-            display: block;
+        .button:hover{
+            background-color:#1e1e1e
         }
-        #preview iframe {
-            background: url("jsp/img/popupLoader.gif") no-repeat scroll center center transparent;
-            min-height: 240px;
+
+        .button>span{
+            font-size:84%
+        }
+        .button.b-close,.button.bClose{
+            border-radius:7px 7px 7px 7px;
+            box-shadow:none;
+            font:bold 131% sans-serif;
+            padding:0 6px 2px;
+            position:absolute;
+            right:-7px;
+            top:-7px
+        }
+        #preview , .bMulti {
+            background-color: #fff;
+            border-radius: 10px 10px 10px 10px;
+            box-shadow: 0 0 25px 5px #999;
+            color: #111;
+            display: none;
             min-width: 450px;
+            min-height: 450px;
+            padding: 25px
+        }
+        #preview  iframe {
+            background: url('jsp/img/popupLoader.gif') center center no-repeat;
+            /*min-height: 240px;
+            min-width: 450px
+            */
+            min-height: 100%;
+            min-width: 100%
+        }
+        #preview .content{
+            position:absolute;
+            bottom: 10px;
+            top: 20px;
+            min-height: 90%;
+            min-width: 90%;
+            border: 1px dashed #2fff70;
         }
     </style>
-
-
-    <%--main.jsp用スクリプト　--%>
+    <%--popup用スクリプト　--%>
     <script type="text/javascript">
 
         $(document).ready(function(){
             $('#shutto-open-preview-guest').bind('click', function(e) {
                 // Prevents the default action to be triggered.
                 e.preventDefault();
+                //$('#previewIfr').attr('src','jsp/phr/html/loginmain.html');
 
                 // Triggering bPopup when click event is fired
                 // popupで表示される対象
+
                 $('#preview').bPopup({
+                    modalClose: true
+                    /*
+                     #preview
                     content:'iframe', //'ajax', 'iframe' or 'image'
                     contentContainer:'.content',
-                    loadUrl:'jsp/phr/html/loginmain1-test.html' //Uses jQuery.load()
+                    loadUrl:'http://dinbror.dk/blog'
+                   // loadUrl:'jsp/phr/html/loginmain1-test.html' //Uses jQuery.load()*/
                 });
             });
-        })
+           })
+    </script>
 
+    <%--main.jsp用スクリプト　--%>
+    <script type="text/javascript">
         function loadPage(src) {
             $("#shutto-source").attr("src", src);
         }
-
     </script>
+
+    <%-- context menu style --%>
+    <style type="text/css">
+        /* menu header */
+        .css-title:before {
+            content: "mobile template";
+            display: block;
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            background: #DDD;
+            padding: 2px;
+
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .css-title :first-child {
+            margin-top: 20px;
+        }
+
+        /* menu header via data attribute */
+        .data-title:before {
+            content: attr(data-menutitle);
+            display: block;
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            background: #DDD;
+            padding: 2px;
+
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        .data-title :first-child {
+            margin-top: 20px;
+        }
+    </style>
+
+    <%--script for contextMenu--%>
+    <script type="text/javascript">
+        $(function(){
+            // make button open the menu
+            $('#bestskip-template-button-menu').bind('click', function(e) {
+                e.preventDefault();
+                $(this).contextMenu();
+                // or $('.context-menu-one').trigger("contextmenu");
+                // or $('.context-menu-one').contextMenu({x: 100, y: 100});
+            });
+
+            $.contextMenu({
+                selector: '#bestskip-template-button-menu',
+                className: 'css-title',
+                trigger: 'none',
+                callback: function(key, options) {
+                    var m = "clicked: " + key;
+                    window.console && console.log(m) || alert(m);
+                },
+                items: {
+                    "edit": {
+                        name: "一覧",
+                        callback:function(){
+                            $('#templateIframe').attr('src','jsp/phr/html/mobile-template001.html');
+                    }
+                    },
+                    "cut": {
+                        name: "ログイン",
+                        callback:function(){
+                             $('#templateIframe').attr('src','jsp/phr/html/loginmain.html');
+                    }
+                    },
+                    "copy": {name: "Copy", icon: "copy"},
+                    "paste": {name: "Paste", icon: "paste"},
+                    "delete": {name: "Delete", icon: "delete"},
+                    "sep1": "---------",
+                    "quit": {name: "Quit", icon: "quit"}
+                }
+            });
+
+            $('#bestskip-template-button-menu').on('click', function(e){
+                console.log('clicked', this);
+            })
+        });
+    </script>
+
     <script src="jsp/js/dragNdrop.js"></script>
 
     <!--　　shutto社用スクリプト
@@ -151,6 +305,9 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <input class="shutto-submit-button" type="button"
                value="get page elements" onclick="convertPage()">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input class="shutto-submit-button" type="button"
+               value="paramater test" onclick="srcTest()">
     </form>
 </div>
 
@@ -347,6 +504,13 @@
             (iPhone)
         </div>
         <div id="shutto-preview-button-menu">メニュー</div>
+        <%--original source by ka--%>
+        <div id="bestskip-template-button-menu" style='display:inline'>template</div>
+
+
+
+
+
     </header>
     <div>
         <!--追加されるコンテンツ表示領域-->
@@ -452,6 +616,17 @@
     <li data-width="1024" style="display:none" title="マスター版にアップグレードすると、タブレット端末向けにも変換できるようになります。">1024px (iPad 横)</li>
     <li data-width="768" style="display:none" title="マスター版にアップグレードすると、タブレット端末向けにも変換できるようになります。">768px (iPad)</li>
     <li data-width="640" style="display:none" title="マスター版にアップグレードすると、タブレット端末向けにも変換できるようになります。">640px</li>
+    <li class="" data-checked="true" data-width="568">568px (iPhone5 横)</li>
+    <li data-width="480">480px (iPhone4 横)</li>
+    <li data-width="360">360px</li>
+    <li data-width="320">320px (iPhone)</li>
+</ul>
+
+
+<ul id=bestskip-template-context-menu" class="shutto-context-menu">
+    <li data-width="1024" style="display:none" title="マスター版にアップグレードすると、タブレット端末向けにも変換できるようになります。">一覧</li>
+    <li data-width="768" style="display:none" title="マスター版にアップグレードすると、タブレット端末向けにも変換できるようになります。">入力</li>
+    <li data-width="640" style="display:none" title="マスター版にアップグレードすると、タブレット端末向けにも変換できるようになります。">その他</li>
     <li class="" data-checked="true" data-width="568">568px (iPhone5 横)</li>
     <li data-width="480">480px (iPhone4 横)</li>
     <li data-width="360">360px</li>
@@ -830,16 +1005,20 @@
 
 
 <%--popup　表示コンテンツ--%>
-<div style="left: 503px; position: absolute; top: 0px; z-index: 9999; opacity: 1; display: block" id="preview">
 
-    <div class="button b-close" style="display: none">
-        <span >X</span>
-    </div>
+<div style="left: 600px; position: absolute; top: 2291px; z-index: 9999; opacity: 1; display: block;"
+     id="preview">
+    <span class="button b-close"><span>X</span></span>
 
     <div class="content">
-        <iframe <%-- src="http://dinbror.dk/blog"--%><%-- class="b-iframe" frameborder="0" scrolling="yes"--%> style="display: none" ></iframe>
+        <%--
+        <iframe src="http://dinbror.dk/blog" class="b-iframe" frameborder="0" scrolling="no"></iframe>
+        --%>
+       <iframe id="previewIfr" src="http://dinbror.dk/blog"></iframe>
     </div>
 </div>
+
+
 
 </body>
 </html>

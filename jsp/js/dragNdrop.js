@@ -11,7 +11,7 @@ function allowDrop(ev) {
 }
 
 function drop(ev) {
-
+    ev.preventDefault();
     //dataTransfer対象からセットされたデーターを取得する
     var data = ev.dataTransfer.getData("Text");
     //alert(data);
@@ -25,6 +25,8 @@ function drop(ev) {
      */
 
     /*iframeのエレメントIDを取得し、別のiframeにコピーする 方法*/
+
+
     var node = ev.target.appendChild(window.parent.document.getElementById("shutto-source").contentWindow.document.getElementById(data).cloneNode(true));
 
     //var node = document.getElementById(data);
@@ -46,7 +48,8 @@ function drop(ev) {
     });
 
     //　右クリックのメニューの定義
-    $(node).contextMenu('myMenu2', {
+    $(node).contextMenu(
+        'myMenu2', {
 
         menuStyle: {
             border: '2px solid #000'
@@ -62,9 +65,30 @@ function drop(ev) {
             color: '#fff',
             backgroundColor: '#0f0',
             border: 'none'
-        }
+        },
+            bindings: {
+                'open': function (t) {
+                    $(t).css(
+                        {
+                            "color": "yellow",
+                            "border": "1px solid red",
+                            "width": "100%"
+                        })
 
-    });//contextMenu end.
+                },
+                'email': function (t) {
+                    alert('idは' + t.id + 'です。\nEmailを起動。');
+                },
+                'save': function (t) {
+                    alert('idは' + t.id + 'です。\nSave（保存）。');
+                },
+                'delete': function (t) {
+                    $(t).remove();
+                    //alert('idは' + t.id + 'です。\n（閉じる）。');
+                }
+            }
+    }
+    );//contextMenu end.
 
 }//fution drop end
 
@@ -149,5 +173,27 @@ function preview() {
 }
 
 
+function srcTest() {
+    //alert("srcTest");
+/*
+    $('#templateIframe').bPopup({
+        modalClose: true
 
+        *//*
+         #preview
+         content:'iframe', //'ajax', 'iframe' or 'image'
+         contentContainer:'.content',
+         loadUrl:'http://dinbror.dk/blog'
+         // loadUrl:'jsp/phr/html/loginmain1-test.html' //Uses jQuery.load()*//*
+    });*/
+   // var doc = $('#templateIframe').contentDocument || $('#templateIframe').contentWindow.document;
+    //var doc = $('#templateIframe').get(0).contentWindow.print();
+    var doc = $('#templateIframe').contents().find('html').html(data);
+
+    alert(doc);
+
+
+    //alert(doc.getElementById("inputarea").hasChildNodes());
+
+}
 
