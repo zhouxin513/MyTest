@@ -26,12 +26,11 @@ public class CreateTemplateAction extends ActionSupport {
 	public String execute() {
 		System.out.println("-originla----------------------------------------------------------------------");
 		System.out.println(htmlsource);
-		String filepath = "C:/Users/bestskip/git/MyTest/DragTest/test01/sample.html";
+		String filepath = "C:/Users/bestskip/git/MyTest/jsp/phr/html/001sample.html";
 		
 		File sampleFile = new File(filepath);
 		if(sampleFile.exists()){
 			delete(sampleFile);
-			
 		}
 				
 		try {

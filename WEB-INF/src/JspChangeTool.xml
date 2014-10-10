@@ -48,6 +48,18 @@
          </action>
         <!--create template action end 20141003 -->
         
+        <!--saveFileToDb action start 20141010 -->
+         <action name="saveFileToDb" class="FileUploadToDbAction" method="upload">
+                <param name="savePath">/fileUpload</param> <!-- pass the file savepath param to the action -->
+            <result name ="success">/jsp/result.jsp</result> <!-- this result do nothing -->
+        </action >
+        <action name ="SubmitFileToDb" class ="FileUploadToDbAction" method="submit">
+            <param name="savePath">/fileUpload</param> <!-- pass the file savepath param to the action -->
+            <result name ="success">/jsp/result.jsp</result>
+        </action >
+        
+        <!--saveFileToDb action end 20141010 -->
+        
         
         
 
