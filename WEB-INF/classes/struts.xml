@@ -7,12 +7,11 @@
 
     <constant name="struts.enable.DynamicMethodInvocation" value="false" />
     <constant name="struts.devMode" value="true" />
-<!--     add by ka 2014-08-07 -->
-    <constant name="struts.objectFactory" value="spring" />
+	
+    <constant name="struts.objectFactory" value="spring" /><!-- add by ka 2014-08-07 -->
     
     <constant name= "struts.multipart.maxSize" value="5242880" /><!-- file upload size limit   add by ka-->
     
-
     <package name="default" namespace="/" extends="struts-default">
 
         <default-action-ref name="index" />
@@ -27,13 +26,11 @@
 
         <action name="index">
             <result type="redirectAction">
-                <param name="actionName">HelloWorld</param>
+                <param name="actionName">Index</param>
                 <param name="namespace">/JspChangeTool</param>
             </result>
         </action>
-        
-               
-        
+            
     </package>
 
     <include file="JspChangeTool.xml"/>

@@ -34,10 +34,6 @@
     <!-- =========================sqlserver dataSource end========================= 2-->
 	<!-- Web Action -->
     <import resource="applicationContext-action.xml" />
-    
-    <!-- start add by ka 20140807 -->
-    <!--使用基于注解方式配置事务 -->
-<!-- 	<tx:annotation-driven transaction-manager="txManager"/> -->
-	<!-- end add by ka 20140807 -->
+ 
  
 </beans>

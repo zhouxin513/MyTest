@@ -24,9 +24,14 @@ package com.bestskip.tool.converter;
 /**
  * <code>Set welcome message.</code>
  */
-public class HelloWorld extends ExampleSupport {
+public class IndexAction extends ExampleSupport {
 
-    public String initPage() throws Exception {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public String initPage() throws Exception {
         setMessage(getText(MESSAGE));
         return SUCCESS;
     }
@@ -34,7 +39,7 @@ public class HelloWorld extends ExampleSupport {
     /**
      * Provide default valuie for Message property.
      */
-    public static final String MESSAGE = "HelloWorld.message";
+    public static final String MESSAGE = "IndexAction.message";
 
     /**
      * Field for Message property.

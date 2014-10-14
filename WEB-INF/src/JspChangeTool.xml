@@ -7,7 +7,7 @@
 
     <package name="JspChangeTool" namespace="/" extends="default">
 
-        <action name="HelloWorld" class="HelloWorld" method="initPage">
+        <action name="Index" class="IndexAction" method="initPage">
             <result>/jsp/main.jsp</result>
         </action>
         
