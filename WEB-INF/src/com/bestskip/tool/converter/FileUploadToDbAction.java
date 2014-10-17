@@ -14,6 +14,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,12 +23,16 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.time.DateUtils;
+/*import org.apache.commons.lang.time.DateUtils;*/
 import org.apache.struts2.ServletActionContext;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.bestskip.tool.converter.CassandraDAO;
+import java.util.Calendar;
+import java.util.Date;
 
+import com.bestskip.tool.converter.CassandraDAO;
 import com.opensymphony.xwork2.ActionSupport;
 import com.datastax.driver.core.BatchStatement;
 import com.datastax.driver.core.ConsistencyLevel;
@@ -141,19 +147,29 @@ public class FileUploadToDbAction extends ActionSupport {
 				CassandraDAO cassandraDAO = new CassandraDAO();
 				
 				//　実行予定CQL文
-				StringBuilder cql_insert = new StringBuilder();
-				cql_insert = cql_insert
-						.append(" INSERT INTO jspconvertor.tm_jsp_convert_history (convert_id, jsp_name, line_no,")
-						.append("  line_contents)")
-						.append(" VALUES (uuid(), ?, ?, ?)");
+				
+				String cql_delete = new StringBuilder(   //　delete文同様ファイル名のデータを事前に削除する 
+						"delete from jspconvertor.jsp_convert04 where jsp_name=")
+						.append("'").append(filename).append("';").toString();
+				//System.out.println("実行予定CQL文：　" + cql_delete);
+				cassandraDAO.getSession().execute(cql_delete); //削除文を実行する
+				
+				String cql_insert = new StringBuilder()  // insert文
+						.append(" INSERT INTO jspconvertor.jsp_convert04 (convert_id,jsp_name, line_no,")
+						.append("  line_contents, event_time)")
+						.append(" VALUES (uuid(), ?, ?, ?,dateof(now()))")
+						.toString();
 
-				System.out.println("実行予定CQL文：　" + cql_insert.toString());
+				//System.out.println("実行予定CQL文：　" + cql_insert);
 				
 				//　PreparedStatementを作成する
-				RegularStatement toPrepare = (RegularStatement) new SimpleStatement(cql_insert.toString())
+				RegularStatement toPrepare = (RegularStatement) new SimpleStatement(cql_insert)
 				.setConsistencyLevel(ConsistencyLevel.QUORUM);
 							
 		        PreparedStatement prepared = cassandraDAO.getSession().prepare(toPrepare);
+		        
+		        //Date eventTime = null;
+		        //eventTime = DateUtils.truncate(new Date(System.currentTimeMillis()), Calendar.HOUR_OF_DAY);
 
 				//　アップロードしたファイルをBufferedReaderで読み取り
 		        BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -164,14 +180,14 @@ public class FileUploadToDbAction extends ActionSupport {
 				// 最終行まで読み込む
 				while ((line = br.readLine()) != null) {
 					i = i + 1;
-					System.out.println(line.toString());
+					System.out.println(i + "行目　　：　" + line.toString());
 					// CQL文のパラメータを作成
 					ArrayList<Object> paramList = new ArrayList<Object>();
 					
 					paramList.add(filename);
 					paramList.add(i);
 					paramList.add(line.toString());
-					
+										
 					BatchStatement batch = new BatchStatement();
 					Object[] inputObj = new Object[paramList.size()];
 					
@@ -179,7 +195,7 @@ public class FileUploadToDbAction extends ActionSupport {
 						inputObj[j] = paramList.get(j);
 					}
 					batch.add(prepared.bind(inputObj));
-					//　CQL文を実行する
+					//　インサート文を実行する
 					cassandraDAO.getSession().execute(batch);
 					//　cqlsession.execute(boundStatement.bind(filename, i,	line.toString()));
 					if (i == 1) {

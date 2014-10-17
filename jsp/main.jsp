@@ -141,22 +141,28 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+
+        //alert("222"+$('#shutto-source')[0].src);
+
         $('#shutto-open-preview-guest').bind('click', function (e) {
             // Prevents the default action to be triggered.
             e.preventDefault();
+            //ロードされたjspファイルのファイル名を取得
+            var jspUrl = $('#shutto-source')[0].src;
             //編集中のテンプレートの現在のソースを取得
             var htmlString = $('#templateIframe').contents().find('html').html();
             //取得したソースをサーバ側のアクションにて処理し、一時ファイルを作成する（Jquery AJAX）
             $.post("preview.action", //action name
                     {
                         //必要な引数を渡す
-                        htmlsource: htmlString
+                        htmlsource: htmlString, //テンプレートiframeのhtmlソースをサーバにアップロードする
+                        jspUrl: jspUrl    //soure用iframeにロードしたファイル名をサーバに伝える
                     },
                     function (response) {
                         //e.preventDefault();
                         //alert(response);
                         //作成した一時テンプレートファイルをプレービュー用のiFrameのソースに指定する
-                        $('#previewIfr').attr('src', "jsp/phr/html/001sample.html");
+                        $('#previewIfr').attr('src', "jsp/phr/html/001sample.jsp");
                         // bPopupのプラクインにていiFrameを表示する
                         $('#preview').bPopup({
                                     modalClose: true
@@ -170,7 +176,7 @@
 
 <%--main.jsp用スクリプト　--%>
 <script type="text/javascript">
-    function loadPage(src) {
+    function loadPage(src) {  //shutto-source iframeにソースファイルをロードする
         $("#shutto-source").attr("src", src);
     }
 </script>

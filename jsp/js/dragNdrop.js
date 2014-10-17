@@ -139,8 +139,8 @@ function convertPage() {
         //　属性を変更する
         $(node).attr({
             "draggable": "true",
-            "ondragstart": "window.parent.drag(event)",
-            "id": uniqueID
+            "ondragstart": "window.parent.drag(event)"
+            /*"id": uniqueID*/
             /*"class":"box-shadow-outset"*/
         });
         // CSSをつける
