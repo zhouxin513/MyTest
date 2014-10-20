@@ -1,26 +1,19 @@
 package com.bestskip.tool.converter;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map.Entry;
 import java.util.regex.*;
-
-import org.eclipse.jdt.internal.compiler.ast.ThisReference;
-
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Metadata;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.core.Row;
-import com.sun.jndi.url.iiopname.iiopnameURLContextFactory;
 
 public class KeywordTest {
 
 	public static void main(String[] args) {
 
 		try {
-
 		   
 			//cassandra resultset 結果テスト
 			// Cassandraに接続する

@@ -99,23 +99,25 @@ function convertPage() {
         var uniqueID = 'id-' + String(uniqueNum);
         //elementsに「id」があるかどうかを判断する必要がある
         // alert(j + ' :' + uniqueID);
-        $(ifrItems[j]).css({
+        // CSSを追加する
+        /*$(ifrItems[j]).css({
             "color": "red",
             "border": "1px solid red"
-        });
+        });*/
         $(ifrItems[j]).attr({
             "draggable": "true",
             "ondragstart": "window.parent.drag(event)",
             "id": uniqueID
         });
         $(ifrItems[j]).mouseover(function(){
-            this.style.backgroundColor = "yellow";
-            this.style.border = "0px solid red"
-
+            /*this.style.backgroundColor = "yellow";
+            this.style.border = "0px solid red"*/
+            this.style.outline = "1px solid #c00"
         });
         $(ifrItems[j]).mouseout(function(){
-            this.style.backgroundColor = "white";
-            this.style.border = "0px solid white"
+            /*this.style.backgroundColor = "white";
+            this.style.border = "0px solid white"*/
+            this.style.outline = "none"
         });
     }
 

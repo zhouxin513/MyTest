@@ -99,18 +99,20 @@ function drop(ev) {
 
 /*Convert対象ページのエレメントに対する処理*/
 function convertPage() {
-    // 対象のエレメントを洗い出し
+    // ifameのBody対象のエレメントを洗い出し
     var ifrbody = $("#shutto-source").contents().find('body');
 
+    //　Bodyの全てのnodeを取得
     var ifrItems = ifrbody.find("*");
-    // alert(y.length);
 
     for (var j = 0; j < ifrItems.length; j++) {
 
-        //alert(y[j].nodeValue);
-        //if(ifrItems[j].id == "drop-box")continue;
         var node =$(ifrItems[j])[0];
-        if(node.tagName === 'div' || node.tagName === 'DIV' )
+        // 特定属性に対してチェックする
+        var idAttr = $(node).attr("id");
+        // if continue 文を追加すれば、処理したくないノードを洗い出し可能
+        // typeof idAttr === 'undefined' は　IDが持たないエレメントに対して処理しない
+        if(node.tagName === 'div' || node.tagName === 'DIV' || typeof idAttr === 'undefined' || idAttr === null )
         {
           //  alert("this is " + node.tagName);
             continue;
@@ -138,12 +140,12 @@ function convertPage() {
 
         //　属性を変更する
         $(node).attr({
-            "draggable": "true",
-            "ondragstart": "window.parent.drag(event)"
+            "draggable": "true",    /*dragできるようにする*/
+            "ondragstart": "window.parent.drag(event)"  /*dragする時のFunctionを与える*/
             /*"id": uniqueID*/
             /*"class":"box-shadow-outset"*/
         });
-        // CSSをつける
+        // CSSを追加する
         $(node).css({
            /* "display": "inline-block",
             "-webkit-transition-duration": "0.3s",
@@ -153,14 +155,15 @@ function convertPage() {
             "-webkit-transform": "translateZ(0)",
             "transform": "translateZ(0)",
             "box-shadow": "inset 0 0 0 4px #e1e1e1, 0 0 1px rgba(0, 0, 0, 0)",
-            "color": "green",*/
-            "border": "1px solid red"
+            "color": "green",
+            "border": "1px solid red"　*/
         });
         //　mouse hoverのファンクション
-        $(node).hover(
+        /*$(node).hover(
             function () {
                 $(this).css({
                     "box-shadow": "inset 0 0 0 2px #666666, 0 0 1px rgba(0, 0, 0, 0)"
+
                 });
             },
             function () {
@@ -168,20 +171,42 @@ function convertPage() {
                     "box-shadow": "inset 0 0 0 2px #e1e1e1, 0 0 1px rgba(0, 0, 0, 0)"
                 });
             }
-        );
+        );*/
 
-        //　イベントを追加する
-        /*$(ifrItems[j]).mouseover(function(){
-            this.style.backgroundColor = "#fcffb3";
+        //　エレメントがmouse hover時にoutlineスタイルを追加する
+        //$(node).mouseover(function(){
+        $(node).mouseenter(function(){
+            //this.style.backgroundColor = "#fcffb3";
+            /*this.style.backgroundColor = "yellow";
+             this.style.border = "0px solid red"*/
+            this.style.outline = "1px solid blue";
+            //this.parentNode.style.outline = "none";
+            this.style.boxShadow = "0px 0px 5px blue";
+            //this.style.outline = "1px solid #c00";
             //this.style.border = "3px solid #a6d220 !important";
             //this.style.color = "#a6d220";
             //this.style.cursor = "pointer";
 
         });
-        $(ifrItems[j]).mouseout(function(){
-            this.style.backgroundColor = "lightgray";
+        $(node).mouseleave(function(){
+            //this.style.backgroundColor = "lightgray";
+            /*this.style.backgroundColor = "yellow";
+             this.style.border = "0px solid red"*/
+            this.style.outline = "none";
+            this.style.boxShadow = "none";
             //this.style.border = "0px solid lightgray";
-        });*/
+        });
+        $(node).click(function(e){
+            //this.style.backgroundColor = "lightgray";
+            /*this.style.backgroundColor = "yellow";
+             this.style.border = "0px solid red"*/
+            //$('*').style.outline = "none";
+            e.target.style.outline = "1px solid #0c0";
+            //alert(idAttr);
+            //alert(e.target.tagName);
+            //e.target.style.border = "1px solid #0c0";
+        });
+
     }
 
 }
