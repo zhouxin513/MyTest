@@ -224,6 +224,16 @@
     }
 </style>
 
+<%-- outline style --%>
+<style type="text/css">
+    .outlineElement {
+        outline: 1px solid #c00;
+    }
+    .outlineElementClicked {
+        outline: 1px solid #0c0;
+    }
+</style>
+
 <%--script for contextMenu--%>
 <script type="text/javascript">
     $(function () {

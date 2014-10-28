@@ -112,7 +112,7 @@ function convertPage() {
         var idAttr = $(node).attr("id");
         // if continue 文を追加すれば、処理したくないノードを洗い出し可能
         // typeof idAttr === 'undefined' は　IDが持たないエレメントに対して処理しない
-        if(node.tagName === 'div' || node.tagName === 'DIV' || typeof idAttr === 'undefined' || idAttr === null )
+        if(node.tagName === 'div' || node.tagName === 'DIV' /*|| typeof idAttr === 'undefined' || idAttr === null*/ )
         {
           //  alert("this is " + node.tagName);
             continue;
@@ -141,8 +141,8 @@ function convertPage() {
         //　属性を変更する
         $(node).attr({
             "draggable": "true",    /*dragできるようにする*/
-            "ondragstart": "window.parent.drag(event)"  /*dragする時のFunctionを与える*/
-            /*"id": uniqueID*/
+            "ondragstart": "window.parent.drag(event)",  /*dragする時のFunctionを与える*/
+            "id": uniqueID
             /*"class":"box-shadow-outset"*/
         });
         // CSSを追加する
@@ -155,8 +155,8 @@ function convertPage() {
             "-webkit-transform": "translateZ(0)",
             "transform": "translateZ(0)",
             "box-shadow": "inset 0 0 0 4px #e1e1e1, 0 0 1px rgba(0, 0, 0, 0)",
-            "color": "green",
-            "border": "1px solid red"　*/
+            "color": "green",*/
+            "border": "1px solid red"
         });
         //　mouse hoverのファンクション
         /*$(node).hover(
@@ -175,13 +175,20 @@ function convertPage() {
 
         //　エレメントがmouse hover時にoutlineスタイルを追加する
         //$(node).mouseover(function(){
-        $(node).mouseenter(function(){
+        $(node).mouseenter(function(evt){
             //this.style.backgroundColor = "#fcffb3";
             /*this.style.backgroundColor = "yellow";
              this.style.border = "0px solid red"*/
+            //var pnode = this.parentNode;
+            /*$("*").mouseleave(function(){
+             $(pnode).style.outline = "none";
+             $(pnode).style.boxShadow = "none";
+             });*/
+            //alert(evt.target.tagName);
             this.style.outline = "1px solid blue";
             //this.parentNode.style.outline = "none";
             this.style.boxShadow = "0px 0px 5px blue";
+            //evt.stopPropagation?evt.stopPropagation():evt.cancelBubble=true;
             //this.style.outline = "1px solid #c00";
             //this.style.border = "3px solid #a6d220 !important";
             //this.style.color = "#a6d220";
@@ -192,6 +199,11 @@ function convertPage() {
             //this.style.backgroundColor = "lightgray";
             /*this.style.backgroundColor = "yellow";
              this.style.border = "0px solid red"*/
+            /*e = event.toElement || event.relatedTarget;
+            if (e.parentNode == this || e == this) {
+                return;
+            }*/
+
             this.style.outline = "none";
             this.style.boxShadow = "none";
             //this.style.border = "0px solid lightgray";
@@ -201,12 +213,22 @@ function convertPage() {
             /*this.style.backgroundColor = "yellow";
              this.style.border = "0px solid red"*/
             //$('*').style.outline = "none";
+            e.target.style.background = "#d9ecff";
             e.target.style.outline = "1px solid #0c0";
             //alert(idAttr);
             //alert(e.target.tagName);
             //e.target.style.border = "1px solid #0c0";
         });
-
+        /*$(node).mouseover(function(event) {
+            $(event.target).addClass('outlineElement');
+        })
+            .mouseout(function(event) {
+                $(event.target).removeClass('outlineElement');
+            })
+            .click(function(event) {
+                $(event.target).toggleClass('.outlineElementClicked');
+            });
+*/
     }
 
 }

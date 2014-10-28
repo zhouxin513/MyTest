@@ -17,8 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 /*import org.apache.commons.lang3.time.DateUtils;*/
 /*import org.apache.commons.lang.time.DateUtils;*/
 import org.apache.struts2.ServletActionContext;
@@ -26,7 +28,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.bestskip.tool.converter.CassandraDAO;
-
 import com.opensymphony.xwork2.ActionSupport;
 import com.datastax.driver.core.BatchStatement;
 import com.datastax.driver.core.ConsistencyLevel;
@@ -318,6 +319,7 @@ public class FileUploadToDbAction extends ActionSupport {
 					new BufferedWriter(new FileWriter(after)));
 	        
 			String line = "";
+			String input = "";
 			// 最終行まで読み込む
 			while ((line = br.readLine()) != null) {
 
@@ -337,10 +339,21 @@ public class FileUploadToDbAction extends ActionSupport {
 				 
 				 String[] ll = result2.split("\\n"); //空白行を取り出し
 				 for(int i=0;i<ll.length;i++){
-					 if(!ll[i].matches("\\s*"))
-						 fp.println(ll[i]);
+					 
+					 if(ll[i].matches("\\s*"))continue; //空白行を処理しない
+											
+					 /* 下記のようなに二行に跨るソースコードを一行に結合する
+					  * 
+					  * line1    <div data-role="page" id="login-page" data-theme="c"
+					  * line2    data-url="login-page">
+					  * */
+					 if(input.equals(""))input = ll[i];
+					 else input = input + " " + ll[i];
+					 if(input.matches("^<.*[^>]$"))continue;
+					 fp.println(input);
+					 input = "";
 				 };
-				 }
+			}
 			}
 			br.close();
 			fp.close();
