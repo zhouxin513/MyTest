@@ -75,18 +75,18 @@ public class FileUploadToDbAction extends ActionSupport {
 
 		// 　ファイル書き込み（保存）メッソドを呼び出し
 		saveUploadFile(this.upload, srcFile);
+		
 		// 処理情報を確認するため
 		System.out.println("アップロードファイル名:" + uploadFileName + "   ファイル・タイプ："
 				+ uploadContentType + " " + chunk + " " + chunks);
 	
-		//　アップロードストリームが完全したかどうかを判断
-		if (chunk == chunks - 1 | chunks == 0 ) {
+		//　アップロードストリームが完全したかどうかを判断する。アップロード及びファイル保存が完了した場合、次の操作を行う。
+		if (chunk == chunks - 1 | chunks == 0 ) {	
 			// 「chunk == chunks - 1」　はクライアント端末から分割されたファイル完全にアップロードされたかを判断
-			//　「chunks == 0」　はクライアントからファイルが分割されたかを判断する
-			System.out.println("File upload end --------------------------------------------------------------------");
+			//　「chunks == 0」　はクライアントからファイルが分割されたかを判断する（ファイルがchunkの最大サイズより大きい場合、分割される）
+			System.out.println("File upload end ----------------------------------------------------------------------");
 			// 保存されたファイルを確認する
 			System.out.println("ファイル名: " + srcFile.getPath());
-						
 			// 保存したファイルをフォーマットする
 			System.out.println("File formart start --------------------------------------------------------------------");
 			// copy the original file
@@ -337,12 +337,12 @@ public class FileUploadToDbAction extends ActionSupport {
 				// System.out.println("after  : " + "\n" +result2);
 				// System.out.println("------------");
 				 
-				 String[] ll = result2.split("\\n"); //空白行を取り出し
+				 String[] ll = result2.split("\\n"); //　空白行を取り出すため、空白コードで切り分
 				 for(int i=0;i<ll.length;i++){
 					 
 					 if(ll[i].matches("\\s*"))continue; //空白行を処理しない
 											
-					 /* 下記のようなに二行に跨るソースコードを一行に結合する
+					 /* 下記のような二行に跨るソースコードを一行に結合する
 					  * 
 					  * line1    <div data-role="page" id="login-page" data-theme="c"
 					  * line2    data-url="login-page">
