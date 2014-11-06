@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="WEB-INF/src"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/asm-3.3.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/asm-commons-3.3.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/asm-tree-3.3.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/commons-fileupload-1.2.2.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/commons-io-2.0.1.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/commons-lang3-3.1.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/freemarker-2.3.19.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/javassist-3.11.0.GA.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/json_simple-1.1.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/ognl-3.0.6.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/struts2-core-2.3.8.jar"/>
+	<classpathentry kind="lib" path="/Users/zhouxin513/Downloads/apache-tomcat-7.0.37/lib/servlet-api.jar"/>
+	<classpathentry kind="var" path="TOMCAT_HOME/lib/servlet-api.jar"/>
+	<classpathentry kind="var" path="TOMCAT_HOME/lib/jasper.jar"/>
+	<classpathentry kind="var" path="TOMCAT_HOME/lib/jsp-api.jar"/>
+	<classpathentry kind="var" path="TOMCAT_HOME/lib/el-api.jar"/>
+	<classpathentry kind="var" path="TOMCAT_HOME/lib/annotations-api.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/struts2-jquery-grid-plugin-3.5.1.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/struts2-json-plugin-2.1.8.1.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/struts2-jquery-plugin-3.5.1.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/xwork-core-2.1.6.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/woothee.jar"/>
+	<classpathentry kind="output" path="WEB-INF/classes"/>
+</classpath>

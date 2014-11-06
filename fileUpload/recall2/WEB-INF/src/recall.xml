@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+    <package name="recall" namespace="/" extends="struts-default,json-default">
+    
+    	<global-results>
+            <result name="loginfail">recall/Login.jsp</result>
+        </global-results>
+
+        <action name="gotoLogin" class="recall.HelloWorld">
+            <result>recall/Login.jsp</result>
+        </action>
+
+		<action name="login"
+            class="recall.LoginAction">
+            <result name="success">recall/ProductDisplay.jsp</result>
+            <result name="error">recall/Login.jsp</result>
+        </action>
+        
+        <action name="getList"
+            class="recall.ProductListGet">
+            <result name="success" type="json" />
+        </action>
+        
+        <action name="add"
+            class="recall.ProductAdd">
+            <result name="success">recall/Welcome.jsp</result>
+            <result name="error">recall/ProductDisplay.jsp</result>
+        </action>
+        <action name="addAll"
+            class="recall.ProductAddAll">
+            <result name="success">recall/ProductAddAll.jsp</result>
+            <result name="error">recall/ProductDisplay.jsp</result>
+        </action>
+        
+        <action name="delete"
+            class="recall.ProductDelete">
+            <result name="success">recall/ProductDisplay.jsp</result>
+            <result name="error">recall/ProductDisplay.jsp</result>
+        </action>
+        
+        <action name="Register"
+            class="recall.ProductInsert">
+            <result name="success">recall/InsertOver.jsp</result>
+            <result name="error">recall/InsertError.jsp</result>
+        </action>
+        
+        <action name="upload"
+            class="recall.ProductUpload">
+            <result name="success">recall/InsertOver.jsp</result>
+            <result name="error">recall/InsertError.jsp</result>
+        </action>
+        
+        <action name="backToInsert" class="recall.BackToInsert">
+            <result name="backToInsert">recall/Welcome.jsp</result>
+            <result name="backToUpload">recall/ProductAddAll.jsp</result>
+            <result name="backToDisplay">recall/ProductDisplay.jsp</result>
+        </action>
+        
+        <action name="backToUpload" class="recall.BackToUpload">
+            <result name="backToInsert">recall/Welcome.jsp</result>
+            <result name="backToUpload">recall/ProductAddAll.jsp</result>
+            <result name="backToDisplay">recall/ProductDisplay.jsp</result>
+        </action>
+        
+        <action name="backToDisplay" class="recall.BackToDisplay">
+            <result name="backToInsert">recall/Welcome.jsp</result>
+            <result name="backToUpload">recall/ProductAddAll.jsp</result>
+            <result name="backToDisplay">recall/ProductDisplay.jsp</result>
+        </action>
+        
+        <!-- Add actions here -->
+    </package>
+</struts>

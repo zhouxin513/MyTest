@@ -1,0 +1,6 @@
+package recall;
+
+public enum MechineType {
+
+	IPAD, IPODTOUCH, IPHONE, WINTABLET, ANDROIDTABLET, ANDROIDPHONE, OTHERS;
+}
