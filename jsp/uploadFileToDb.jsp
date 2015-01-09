@@ -12,7 +12,6 @@
 <script src="js/dragNdrop.js" type="text/javascript"></script>
 <style type="text/css">
 
-
     #itemDiv {
         /*position: relative;
         top: 20px;
@@ -21,7 +20,6 @@
         border: solid 1px #4d90fe;
         color: #fff;
         */
-
         position: absolute;
         top: 370px;
         left: 8px;
@@ -31,7 +29,6 @@
         border: solid 1px #4d90fe;
         border-radius: 6px;
         color: #fff;
-
     }
 
     #clear-btn {
@@ -59,7 +56,6 @@
         height: 20px;
         font: bold;
         color: #ffffff;
-
     }
 
     #select-btn {
@@ -108,8 +104,9 @@
             $("#uploader").pluploadQueue({
                 // General settings
                 runtimes: 'html5,gears,browserplus,silverlight,flash,html4',
-                // use FileUpload action as url to upload files setting in struts.xml
+                
                 // Fake server response here
+                // use FileUpload action as url to upload files setting in struts.xml
                 url: 'saveFileToDb.action',
 
                 // rename : true,
@@ -185,14 +182,12 @@
                         var fileUrlTxt = result.fileUrl;
                         var fileNameTxt = result.fileName;
 
-
                         //　アップロードしたファイル一覧表示する、ラジオグループとして表示する
                         var radioItem = document.createElement("input");
                         radioItem.type = "radio";
                         radioItem.name = "radioGrp";
                         //radioItem.id = "rad1";
                         radioItem.value = fileUrlTxt;
-
 
                         // ラジオボタンにテキストラベルを作成
                         var lableElement = document.createElement("Label");

@@ -269,7 +269,7 @@
                 "cut2": {
                     name: "テンプレート003",
                     callback: function () {
-                        $('#templateIframe').attr('src', 'jsp/phr/html/002list_template.html');
+                        $('#templateIframe').attr('src', 'jsp/phr/html/mobile-template003.html');
                     }
                 },
                 "copy": {name: "Copy", icon: "copy"},

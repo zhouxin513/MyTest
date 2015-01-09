@@ -1,7 +1,7 @@
 /*dragされる対象　drag eventが発生する時のファンクション*/
 
 function drag(ev) {
-    ev.dataTransfer.setData("Text", ev.target.id);
+        ev.dataTransfer.setData("Text", ev.target.id);
     //alert(ev.dataTransfer.setData("Text",ev.target.id));
 }
 
@@ -155,8 +155,8 @@ function convertPage() {
             "-webkit-transform": "translateZ(0)",
             "transform": "translateZ(0)",
             "box-shadow": "inset 0 0 0 4px #e1e1e1, 0 0 1px rgba(0, 0, 0, 0)",
-            "color": "green",*/
-            "border": "1px solid red"
+            "color": "green",
+            "border": "1px solid red"*/
         });
         //　mouse hoverのファンクション
         /*$(node).hover(

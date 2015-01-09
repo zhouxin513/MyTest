@@ -15,6 +15,11 @@ function drop(ev) {
     //dataTransfer対象からセットされたデーターを取得する
     var data = ev.dataTransfer.getData("Text");
 
+    var LiNode = document.createElement("LI");
+    LiNode.appendChild(window.parent.document.getElementById("shutto-source").contentWindow.document.getElementById(data).cloneNode(true));
+    ev.target.appendChild(LiNode);
+
+
     /*本体のエレメントIDを取得し、コピーする　方法
      　ev.target.appendChild(document.getElementById(data).cloneNode(true));
      */
@@ -24,7 +29,7 @@ function drop(ev) {
      */
 
     /*iframeのエレメントIDを取得し、別のiframeにコピーする 方法*/
-    ev.target.appendChild(window.parent.document.getElementById("shutto-source").contentWindow.document.getElementById(data).cloneNode(true));
+    //ev.target.appendChild(window.parent.document.getElementById("shutto-source").contentWindow.document.getElementById(data).cloneNode(true));
     var node = document.getElementById(data);
 
     // エレメントのIDがdrop&dragのイベントに必要
@@ -99,6 +104,99 @@ function drop(ev) {
 
 }//fution drop end
 
+function drop_to_menu(ev) {
+    ev.preventDefault();
+    //dataTransfer対象からセットされたデーターを取得する
+    var data = ev.dataTransfer.getData("Text");
+
+    var LiNode = document.createElement("LI");
+    LiNode.appendChild(window.parent.document.getElementById("shutto-source").contentWindow.document.getElementById(data).cloneNode(true));
+    ev.target.appendChild(LiNode);
+
+    /*本体のエレメントIDを取得し、コピーする　方法
+     　ev.target.appendChild(document.getElementById(data).cloneNode(true));
+     */
+
+    /*iframeのエレメントIDを取得し、コピーする 方法
+     ev.target.appendChild(document.getElementById("shutto-source").contentWindow.document.getElementById(data).cloneNode(true));
+     */
+
+    /*iframeのエレメントIDを取得し、別のiframeにコピーする 方法*/
+   /* ev.target.appendChild(window.parent.document.getElementById("shutto-source").contentWindow.document.getElementById(data).cloneNode(true));
+    */
+    var node = document.getElementById(data);
+
+    // エレメントのIDがdrop&dragのイベントに必要
+    var uniqueID2 = "mobile-" + data;
+
+    // 新規追加ロードに属性やスタイル、アクションなどを定義する
+    $(node).css({
+        "color": "yellow",
+        "border": "1px solid #a6d220",
+        "width": "100%"
+    });
+    $(node).attr({
+        "draggable": "true",
+        "ondragstart": "drag(event)",
+        "class": "node-component"/*
+         "id": uniqueID2,*/
+
+    });
+
+
+    //クリックのメニューの定義(jquery.contextmenu.r2.js)
+    $(node).contextMenu(
+        'myMenu2', {
+            menuStyle: {
+                border: '2px solid #000'
+            },
+            itemStyle: {
+                fontFamily: 'verdana',
+                backgroundColor: '#666',
+                color: 'white',
+                border: 'none',
+                padding: '1px'
+            },
+            itemHoverStyle: {
+                color: '#fff',
+                backgroundColor: '#0f0',
+                border: 'none'
+            },
+            bindings: {
+                'open': function (t) {
+                    //自身スタイルを変更する
+                    $(t).css(
+                        {
+                            "color": "yellow",
+                            "border": "1px solid red",
+                            "width": "100%"
+                        })
+                },
+                'email': function (t) {
+                    alert('idは' + t.id + 'です。\nEmailを起動。');
+                },
+                'save': function (t) {
+                    var val4 = null;
+                    for (var i = 0; i < t.attributes.length; i++) {
+                        var attrNode = t.attributes[i];
+                        if (attrNode.nodeName == "attr1") {
+                            val4 = attrNode.nodeValue;
+                            break;
+                        }
+                    }
+                    alert(val4);
+                    //alert('idは' + t.id + 'です。\nSave（保存）。');
+                },
+                'delete': function (t) {
+                    //自身を削除する
+                    $(t).remove();
+                    //alert('idは' + t.id + 'です。\n（閉じる）。');
+                }
+            }
+        }
+    );//contextMenu end.
+
+}//fution drop end
 
 /*Convert対象ページのエレメントに対する処理*/
 function convertPage() {

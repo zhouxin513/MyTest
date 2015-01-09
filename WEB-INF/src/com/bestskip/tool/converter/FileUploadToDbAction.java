@@ -21,6 +21,7 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 /*import org.apache.commons.lang3.time.DateUtils;*/
 /*import org.apache.commons.lang.time.DateUtils;*/
 import org.apache.struts2.ServletActionContext;
@@ -52,8 +53,7 @@ public class FileUploadToDbAction extends ActionSupport {
 	private int chunk;
 	private int chunks;
 	private String result;
-
-	public String upload() {
+    public String upload() {
 		
 		System.out.println("File upload start --------------------------------------------------------------------");
 		String filename = this.getName();
@@ -67,42 +67,75 @@ public class FileUploadToDbAction extends ActionSupport {
 		// 保存ファイルを定義
 		File srcFile = new File(dstDirectory + "\\" + "original_" + filename);
 		// 同じファイルが既に存在するかどうかをチェックし、存在すれば削除する
+		//　クライアントからアップロードしてきたファイルが完全にアップロードされたかどうかの判断は「chunk == 0」で判断する。
 		if (chunk == 0 && srcFile.exists()) {
 			srcFile.delete();
 			srcFile = new File(dstDirectory + "\\" + "original_" + filename);
 			System.out.println("chunkの数" + chunk);
 		}
 
-		// 　ファイル書き込み（保存）メッソドを呼び出し
+		// 　ファイル書き込み（保存）メッソドを呼び出す（クライアントからストリームを受け取り、ファイルに書込）
 		saveUploadFile(this.upload, srcFile);
 		
 		// 処理情報を確認するため
 		System.out.println("アップロードファイル名:" + uploadFileName + "   ファイル・タイプ："
 				+ uploadContentType + " " + chunk + " " + chunks);
 	
-		//　アップロードストリームが完全したかどうかを判断する。アップロード及びファイル保存が完了した場合、次の操作を行う。
+		//　アップロードストリームが完全であるかどうかを判断する。アップロード及びファイル保存が完了した場合、次の操作を行う。
 		if (chunk == chunks - 1 | chunks == 0 ) {	
 			// 「chunk == chunks - 1」　はクライアント端末から分割されたファイル完全にアップロードされたかを判断
-			//　「chunks == 0」　はクライアントからファイルが分割されたかを判断する（ファイルがchunkの最大サイズより大きい場合、分割される）
+			//　「chunks == 0」　はクライアントからファイルが分割されたかを判断する（ファイルがchunkの最大サイズより大きい場合、分割される）「chunks == 0」の場合はクライアントからアップロード時、ファイルを分割しなかった
 			System.out.println("File upload end ----------------------------------------------------------------------");
 			// 保存されたファイルを確認する
 			System.out.println("ファイル名: " + srcFile.getPath());
 			// 保存したファイルをフォーマットする
 			System.out.println("File formart start --------------------------------------------------------------------");
 			// copy the original file
-			String dstFilePath = dstDirectory + "\\" + filename;
+			String dstFilePath1 = dstDirectory + "\\" + filename + "_1";
 			/*try {
 			    FileUtils.copyFile(srcFile, dstFile);
 			} catch (IOException e) {
 			    e.printStackTrace();
 			}*/
-			File dstFile = new File(dstFilePath);			
+			File dstFile1 = new File(dstFilePath1);			
 			// ファイル既に存在する場合、削除する 
-			if (dstFile.exists()) {
-				dstFile.delete();
+			if (dstFile1.exists()) {
+				dstFile1.delete();
 			}
+			
 			// call fileFormart() method to formart file 
-			fileFormart(srcFile,dstFilePath);
+			//　元のjspファイルの改行コードなどを整形する。（<%　%>のようなjavaソースが加工できない？）
+			fileFormart(srcFile,dstFilePath1);
+			
+			//　二次加工する。<body>内のjspライブラリの前後に<span></span>を追加する。			
+			String dstFilePath2 = dstDirectory + "\\" + filename + "_2";
+			File dstFile2 = new File(dstFilePath2);
+			// ファイル既に存在する場合、削除する 
+			if (dstFile2.exists()) {
+				dstFile2.delete();
+			}
+			fileFormart2(dstFile1,dstFilePath2);
+			
+			//　三次加工する。改行コードなどを整形する。			
+			String dstFilePath3 = dstDirectory + "\\" + filename + "_3";
+			File dstFile3 = new File(dstFilePath3);
+			// ファイル既に存在する場合、削除する 
+			if (dstFile3.exists()) {
+				dstFile3.delete();
+			}
+			fileFormart(dstFile2,dstFilePath3);
+			
+			
+			/*　フォーマットしたファイルに対して、さらに加工する
+			 * 行内容の分析、解析処理
+			 * 処理項目　　　　　　　　処理詳細
+			 * 1:htmlタグ　　　　　　　ｉｄを与える
+			 * 2:javascript　　　　
+			 * 3.java　　　　　　　　　
+			 * 4:jspタグライブラリ　　　　
+			 *　5:その他
+			*/
+			// fileFormart()
 			 
 			System.out.println("File formart end --------------------------------------------------------------------");
 			// file formartting end
@@ -166,9 +199,46 @@ public class FileUploadToDbAction extends ActionSupport {
 		        //Date eventTime = null;
 		        //eventTime = DateUtils.truncate(new Date(System.currentTimeMillis()), Calendar.HOUR_OF_DAY);
 
-				//　アップロードしたファイルをBufferedReaderで読み取り
+				//　アップロードした上記整形したファイルをBufferedReaderで読み取り
 		        BufferedReader br = new BufferedReader(new InputStreamReader(
-						new FileInputStream(dstFile), "UTF-8"));
+						new FileInputStream(dstFile3), "UTF-8"));
+		        		        
+		        
+		        /*//行分析開始
+		        
+		        
+		        　positon 
+		         * ファイル全体における行の位置
+　　　　　　　　　　　　　　*　初期ポジションは<head>部以上
+				* 1:head以上部　　　code_over_html    
+				* 2:head　　code_in_head　　　　　　
+    　　　　　			* 3:headとbodyの間
+				* 4:body　　code_in_body　
+				* 5:bodyの下　code_under_body
+				
+		         
+		        int positionNow = 1;
+		       
+		           code_type    コードのプログラム的なカテゴリ
+　　　　　　		      　　 *　　1:htmlタグ
+	　		   　　　 *      2:javascript
+		　　		 *	 3.java
+	　　			　*   　 4:jspタグライブラリ
+	　　			 *	　5:その他　
+		         
+		        
+		        int codeType ;
+		        int codeTypeInit = 5; //初期コード・タイプ
+		        
+		        String tagName = "";
+		        String nodeId = null;
+		        String levelId = null;
+		        
+		        int fatherNodeLevel = 0;
+		        
+		        int nodeConditionNow = 1;
+		        */
+		      
 				
 				String line = "";
 				int i = 0;
@@ -176,9 +246,67 @@ public class FileUploadToDbAction extends ActionSupport {
 				while ((line = br.readLine()) != null) {
 					i = i + 1;
 					System.out.println(i + "行目　　：　" + line.toString());
-					// CQL文のパラメータを作成
-					ArrayList<Object> paramList = new ArrayList<Object>();
 					
+										
+					/*//分類１判定  position
+					int position = positionNow;
+					if (line.matches("^<head.*")) {
+						positionNow = 2; 
+						position = 2;
+					} else if (line.matches("^</head.*")) {
+						positionNow = 3;
+					} else if (line.matches("^<body.*")) {
+						positionNow = 4;
+						position = 4;
+					}  else if (line.matches("^</body.*")){
+						positionNow = 5;
+					} 
+					
+					//body内のcodeタイプを分類する
+					int nodeCondition;
+					int nodeLevel;
+					if(position == 4){
+						int code_type = codeTypeInit;
+						if (line.matches("<([a-zA-Z]+[^:>]+?)\\s*.*>") && !line.matches("^<body.*")) {//例：　<h2 align="center">
+							code_type = 1 ;
+							nodeId = "html_" + i ;
+							
+							//予定作業、tagにidを追加する
+							line = line + nodeId;
+							
+							nodeLevel = fatherNodeLevel + 1;
+							nodeCondition = 1 ;//tagがスタート状態を示す
+							
+							fatherNodeLevel = nodeLevel ;//親ノードレベルを変更する。
+							levelId = nodeId;//開始と終了を識別するため。
+						
+						
+							
+							
+							
+							// tagName抽出
+							Pattern pat = Pattern.compile("<([a-zA-Z]+[^:>]+?)\\s*.*>");
+							Matcher m = pat.matcher(line);
+							while(m.find()){
+								tagName = m.group(1) ;
+								System.out.println(tagName);
+							}
+						
+						} else if (line.matches("^<script.*")) {
+							code_type = 2;
+						} else if (line.matches("^<%.*")) {
+							code_type = 3;
+						} else if (line.matches("<([a-zA-Z])+:([a-zA-Z]+)\\s*.*>")){
+							code_type = 4;
+						}
+						
+					}
+					
+					//行分析終了
+					
+					*/
+					// CQL文のパラメータを作成
+					ArrayList<Object> paramList = new ArrayList<Object>();					
 					paramList.add(filename);
 					paramList.add(i);
 					paramList.add(line.toString());
@@ -196,6 +324,9 @@ public class FileUploadToDbAction extends ActionSupport {
 					if (i == 1) {
 						continue;
 					}
+					
+					/*// tagNameを""に戻す
+					if(!tagName.equals(""))tagName = "";*/
 				}
 				br.close();
 				cassandraDAO.close();			
@@ -241,7 +372,8 @@ public class FileUploadToDbAction extends ActionSupport {
 		}
 		return SUCCESS;
 	}
-
+	
+	//クライアントからストリームを受け取り、ファイルに書込
 	private void saveUploadFile(File src, File dst) {
 		// test
 		System.out.println("saveUploadFile test: ");
@@ -324,6 +456,12 @@ public class FileUploadToDbAction extends ActionSupport {
 			while ((line = br.readLine()) != null) {
 
 				if(line.matches("\\s*"))continue; // 空白の行を処理しない、全角文字を処理できない
+				else if (!line.matches(".*<.*") && !line.matches(".*>.*") ){//ソース行に「<」,「>」がなければ処理せず、そのままソースファイルに書込
+					fp.println(line);
+				}
+				else if (line.matches(".*'<.*>'.*")){//【jQuery($('<li data-t..........います</p></a></li>')).insertAfter($('#add li:first'));】のようなソース中の「>」、「<」に改行コードを追加せず、そのまま作成ソースに書込
+					fp.println(line);
+				}
 				else{
 				Pattern p1 = Pattern.compile(">"); 
 				Matcher m1 = p1.matcher(line);
@@ -349,7 +487,7 @@ public class FileUploadToDbAction extends ActionSupport {
 					  * */
 					 if(input.equals(""))input = ll[i];
 					 else input = input + " " + ll[i];
-					 if(input.matches("^<.*[^>]$"))continue;
+					 if(input.matches("^<[^%].*[^>]$"))continue;//「<」で始まり（<%を取り除く）、「>」で終わらない場合、ループから抜ける
 					 fp.println(input);
 					 input = "";
 				 };
@@ -361,6 +499,71 @@ public class FileUploadToDbAction extends ActionSupport {
 			e.printStackTrace();
 			}
 	}
+	
+	private void fileFormart2(File before,String after) {
+		try {
+			//　アップロードしたファイルをBufferedReaderで読み取り
+	        BufferedReader br = new BufferedReader(new InputStreamReader(
+					new FileInputStream(before), "UTF-8"));
+	        
+	        PrintWriter fp = new PrintWriter(
+					new BufferedWriter(new FileWriter(after)));
+	        
+			String line = "";
+			int position = 0; //ソース内容が<bodyタグの下にあるかどうかを判断する,
+			
+			while ((line = br.readLine()) != null) {
+				
+				if (line.matches("^<body.*"))position = 1 ;
+				if (position == 1){
+					if (line.matches("<([a-zA-Z])+:([a-zA-Z]+)\\s*.*/>")){
+						line = "<span>" + line + "</span>";
+					}else if (line.matches("<([a-zA-Z])+:([a-zA-Z]+)\\s*.*[^/]>")){
+						line = "<span>" + line;
+					}else if (line.matches("<(/[a-zA-Z])+:([a-zA-Z]+)*.*>")){
+						line = line+ "</span>";
+					}
+					
+				}
+				
+				
+				if (line.matches("^</body.*"))position = 0;
+				fp.println(line);
+				 
+			 };
+		
+		
+		br.close();
+		fp.close();
+		} catch (Exception e) {
+		e.printStackTrace();
+		}
+		}
+	
+	
+	// 行所在場所判定
+	/*private int positionCheck(String sourceCode,int positonnow){
+		int pos = positionnow;
+		if (sourceCode.matches("^<head.*")) {
+			position_now = 2; 
+			pos =2;
+			return pos;
+		} else if (sourceCode.matches("^<//head.*")) {
+			position_now = 3;
+			return pos;
+		} else if (sourceCode.matches("^<body.*")) {
+			position_now = 4;
+			pos = 4;
+			return pos;
+		}  else if (sourceCode.matches("^</body.*")){
+			posion_now = 5;
+			return pos;
+		} else {
+			return pos;
+		}
+		
+	}*/
+	
 
 	public void setId(int id) {
 		this.id = id;

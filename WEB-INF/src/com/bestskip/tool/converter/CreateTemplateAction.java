@@ -46,11 +46,11 @@ public class CreateTemplateAction extends ActionSupport {
 		
 		// プレービュー用htmlソースの一時の保存場所を定義
 		//　★今後予定：　テンプレートのファイルパスを変数で獲得し、動的に指定する
-		String filepath = "C:/Users/bestskip/git/MyTest/jsp/phr/html/001sample_temp.html";
+		String SampleFilepath = "C:/Users/bestskip/git/MyTest/jsp/phr/html/001sample_temp.html";
 		
 		//　プレービュー用の一時ファイルと同じファイル名のファイルが存在したかをチェックする
 		//　★今後予定：　一時ファイルがプレービュー完成後、削除となる。
-		File sampleFile = new File(filepath);  //　既に存在する場合、削除
+		File sampleFile = new File(SampleFilepath);  //　既に存在する場合、削除
 		if (sampleFile.exists()) {
 			delete(sampleFile);
 		}
@@ -66,7 +66,7 @@ public class CreateTemplateAction extends ActionSupport {
 			}
 			
 			//　Writerを用意する
-			PrintWriter fp = new PrintWriter(new BufferedWriter(new FileWriter(filepath)));
+			PrintWriter fp = new PrintWriter(new BufferedWriter(new FileWriter(SampleFilepath)));
 			
 			//　事前に追加で書き込みたいソースを書き込む
 			//　★今後予定：　Browserから書き込みたいソースを用意できるようにする
@@ -157,17 +157,25 @@ public class CreateTemplateAction extends ActionSupport {
 					new BufferedWriter(new FileWriter(after)));
 
 			String line = "";
+			String sourceLine ="";
 			// 一時htmlソースファイルを行毎に最終行まで処理する
 			while ((line = br.readLine()) != null) {
 
-				if (line.matches("\\s*"))
+				if (line.matches("\\s*")){
 					continue; // 空白の行を処理しない（Writerに書き込まない）
+				}
+				else if (!line.matches(".*<.*") && !line.matches(".*>.*") ){//ソース行に「<」,「>」がなければ処理せず、そのままソースファイルに書込
+					fp.println(line);
+				}
+				else if (line.matches(".*'<.*>'.*")){//【jQuery($('<li data-t..........います</p></a></li>')).insertAfter($('#add li:first'));】のようなソース中の「>」、「<」に改行コードを追加せず、そのまま作成ソースに書込
+					fp.println(line);
+				}
 				else {
 					//「　<　>　」　単位でソースファイルを整形する
 					Pattern p1 = Pattern.compile(">");
 					Matcher m1 = p1.matcher(line);
 					String result1 = m1.replaceAll(">\n"); // 　改行コードを追加
-
+					
 					Pattern p2 = Pattern.compile("<");
 					Matcher m2 = p2.matcher(result1);
 					String result2 = m2.replaceAll("\n<"); // 　改行コードを追加
@@ -175,10 +183,10 @@ public class CreateTemplateAction extends ActionSupport {
 					String[] ll = result2.split("\\n"); //　処理した文字列を空白コードで分割する
 					for (int i = 0; i < ll.length; i++) {
 						if (!ll[i].matches("\\s*")) { // 空白文字列を処理しない
-							String sourceLine = ll[i];
+							sourceLine = ll[i];
 
 							// htmlソースからJSPファイルにからソースコードを逆引き処理
-							if (sourceLine.matches("^<.*")) { // タグで始まる行のみを処理する、その他そのままWriterに書き込み
+							if (sourceLine.matches("^<.*")) { // タグで始まる行のみを処理する、その他の行をそのままWriterに書き込み
 
 								for (HashMap<String, String> obj : list) { // listから元jspファイル行毎のソースを比較する
 

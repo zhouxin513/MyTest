@@ -1,0 +1,63 @@
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>
+<s:property value="%{getText('title.login')}"/>
+</title>
+</head>
+<body>
+<h2  align="center">
+ asdfasdfasdfasdfasdf
+<span><s:property value="%{getText('title.login')}"/></span>
+</h2>
+<span><s:actionerror /></span>
+<span><s:form action="login.action" method="post">
+<h2 id="1">
+111111111111
+<span><s:textfield name="username" key="label.userid" size="20" /></span>
+</h2>
+<h2 id="2">
+222222222222
+<span><s:password name="password" key="label.password" size="20" id="JSTL_id"/></span>
+</h2>
+<h2 id="3">
+333333333333
+<span><s:submit method="execute" key="button.login" align="center" /></span>
+</h2>
+<%
+out.println("Hello World�I");
+out.println("Hello World�I");
+out.println("����ɂ���");
+%>
+<div id="iterate" >
+<span><s:iterator value='{"1","2","3","4","5"}'  id="number1" status="st">
+<span>
+<span><s:property value="number1"/></span>
+</span>
+A
+<span><s:property value="number1"/></span>
+B
+<span><s:property value="number1"/></span>
+C
+<span><s:property value="number1"/></span>
+D
+</s:iterator></span>
+</div>
+<div id="select">
+<span><s:select name="LIST" list='{"java","vb.net","php"}'  value="php"/></span>
+</div>
+<div id="radio">
+<span><s:radio name="MAP" list='#{"��":"��","��":"��"}' value="��" /></span>
+</div>
+<div id="checkbox">
+<span><s:checkboxlist name="MAP" list='#{1:"java",2:"VB",3:"C"}' listKey="key" listValue="value" value="{1,2}"/></span>
+</div>
+<h2 id="3">
+333333333333
+<span><s:submit method="execute" key="button.login" align="center" /></span>
+</h2>
+</s:form></span>
+</body>
+</html>
