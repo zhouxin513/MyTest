@@ -8,7 +8,8 @@
 </title>
 </head>
 <body>
-<h2 align="center" >
+<h2
+ align="center">
  
  asdfasdfasdfasdfasdf
 <s:property value="%{getText('title.login')}"/>
@@ -16,16 +17,15 @@
 <s:actionerror />
 <s:form action="login.action" method="post">
 
-<h2 id="1">
- 111111111111
+<h2 id="1">111111111111
 <s:textfield name="username" key="label.userid" size="20" />
 </h2>
 <h2 id="2">222222222222
 <s:password name="password" key="label.password" size="20" id="JSTL_id"/>
 </h2>
-<h2 id="3">
-333333333333
-<s:submit method="execute" key="button.login" align="center" /></h2>
+<h2 id="3">333333333333
+<s:submit method="execute" key="button.login" align="center" />
+</h2>
 
 
 <%
@@ -36,7 +36,7 @@ out.println("‚±‚ñ‚É‚¿‚Í");
 
 yjQuery($('<li data-t..........‚¢‚Ü‚·</p></a></li>')).insertAfter($('#add li:first'))
 
-<div     id="iterate"    >
+<div id="iterate" >
 <s:iterator value='{"1","2","3","4","5"}' id="number1" status="st">
         
         <s:property value="number1"/>

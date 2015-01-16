@@ -34,7 +34,7 @@ import com.datastax.driver.core.PreparedStatement;
 import com.datastax.driver.core.RegularStatement;
 import com.datastax.driver.core.SimpleStatement;
 
-public class FileUploadToDbAction extends ActionSupport {
+public class CopyOfFileUploadToDbAction extends ActionSupport {
 
 	/**
 	 *
@@ -177,20 +177,20 @@ public class FileUploadToDbAction extends ActionSupport {
 
 				// 　実行予定CQL文
 				String cql_delete = new StringBuilder( // 　delete文同様ファイル名のデータを事前に削除する
-						"delete from jspconvertor.tm_jsp_convert_history where jsp_name=")
+						"delete from jspconvertor.jsp_convert05 where jsp_name=")
 						.append("'").append(filename).append("';").toString();
 				String cql_select = new StringBuilder( // 　delete文同様ファイル名のデータを事前に削除する
-						"select count(*) from jspconvertor.tm_jsp_convert_history where jsp_name=")
+						"select count(*) from jspconvertor.jsp_convert05 where jsp_name=")
 						.append("'").append(filename).append("';").toString();
 				System.out.println("実行予定CQL文：　" + cql_delete);
-				// DBに jsp_nameのデータがあるかどうをチェックする    resultset 
-				//cassandraDAO.getSession().execute(cql_delete); //削除文を実行する
+				// DBに jsp_nameのデータがあるかどうをチェックする
+				// 　cassandraDAO.getSession().execute(cql_delete); //削除文を実行する
 
 				String cql_insert = new StringBuilder()
 						// insert文
-						.append(" INSERT INTO jspconvertor.tm_jsp_convert_history (convert_id, jsp_name, line_no,")
-						.append(" level, node_condition, father_node_id, node_id, position, code_type,")
-						.append("  line_contents, create_time)")
+						.append(" INSERT INTO jspconvertor.jsp_convert05 (convert_id, jsp_name, line_no,")
+						.append(" node_level, node_condition, father_node_id, node_id, position, code_type,")
+						.append("  line_contents, event_time)")
 						.append(" VALUES (uuid(), ?, ?, ?, ?, ?, ?, ?, ?, ?, dateof(now()))")
 						.toString();
 
@@ -235,7 +235,7 @@ public class FileUploadToDbAction extends ActionSupport {
 				int codeTypeNow = 5;
 				int codeType = 5;
 
-				String nodeId;
+				String nodeId = null;
 				String fatherNodeId = null;
 				String LevelIdInit = "jsp_body"; // 最初のノードIDはbodyのｉｄ
 				// タグ開始と終了位置をマークする
@@ -261,8 +261,6 @@ public class FileUploadToDbAction extends ActionSupport {
 							+ "    position : " + position);
 					nodeCondition = nodeConditionNow;
 					codeType = codeTypeNow;
-					nodeId = null;
-					fatherNodeId = null;
 
 					// body内のcodeタイプを分類する
 					// String nodeId = null;
@@ -338,7 +336,6 @@ public class FileUploadToDbAction extends ActionSupport {
 							nodeCondition = nodeConditionNow;
 							// ノード所在階層レベルを記録
 							codeType = codeTypeNow;
-							fatherNodeId = levelIdList.get(nodeLevelNow);
 						}
 					}
 					// 行分析終了
@@ -505,7 +502,6 @@ public class FileUploadToDbAction extends ActionSupport {
 			int num;
 			String id;
 			int position = 0; // ソースコードがbodyの中にあるかどうかを判断する。初期値0--bodyの外にある
-						
 			// 最終行まで読み込む
 			while ((line = br.readLine()) != null) {
 

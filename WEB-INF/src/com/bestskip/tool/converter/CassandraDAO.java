@@ -23,7 +23,7 @@ public class CassandraDAO {
 
 	private Cluster cluster;
 	private Session session;
-	private String node = "localhost";
+	private String node = "153.121.64.142";
 	private String dbName = "jspconvertor";
 	public static String TYPE_UUID = "UUID";
 	public static String TYPE_STRING = "TYPE_STRING";

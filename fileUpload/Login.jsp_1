@@ -8,56 +8,98 @@
 </title>
 </head>
 <body>
+<span>
 <h2  align="center">
  asdfasdfasdfasdfasdf
+<span>
 <s:property value="%{getText('title.login')}"/>
+</span>
 </h2>
+</span>
+<span>
 <s:actionerror />
+</span>
+<span>
 <s:form action="login.action" method="post">
+<span>
 <h2 id="1">
-111111111111
+<span>
 <s:textfield name="username" key="label.userid" size="20" />
+</span>
 </h2>
+</span>
+<span>
 <h2 id="2">
-222222222222
+<span>
 <s:password name="password" key="label.password" size="20" id="JSTL_id"/>
+</span>
 </h2>
+</span>
+<span>
 <h2 id="3">
-333333333333
+<span>
 <s:submit method="execute" key="button.login" align="center" />
+</span>
 </h2>
+</span>
+<span>
 <%
 out.println("Hello World�I");
 out.println("Hello World�I");
 out.println("����ɂ���");
 %>
+</span>
+�yjQuery($('<li data-t..........���܂�</p></a></li>')).insertAfter($('#add li:first'))
+<span>
 <div id="iterate" >
-<s:iterator value='{"1","2","3","4","5"}'  id="number1" status="st">
+<span>
+<s:iterator value='{"1","2","3","4","5"}' id="number1" status="st">
 <span>
 <s:property value="number1"/>
 </span>
-A
+        A
+<span>
 <s:property value="number1"/>
-B
+</span>
+<span>
 <s:property value="number1"/>
-C
+</span>
+<span>
 <s:property value="number1"/>
-D
+</span>
 </s:iterator>
+</span>
 </div>
+</span>
+<span>
 <div id="select">
+<span>
 <s:select name="LIST" list='{"java","vb.net","php"}'  value="php"/>
+</span>
 </div>
+</span>
+<span>
 <div id="radio">
+<span>
 <s:radio name="MAP" list='#{"��":"��","��":"��"}' value="��" />
+</span>
 </div>
+</span>
+<span>
 <div id="checkbox">
+<span>
 <s:checkboxlist name="MAP" list='#{1:"java",2:"VB",3:"C"}' listKey="key" listValue="value" value="{1,2}"/>
+</span>
 </div>
+</span>
+<span>
 <h2 id="3">
-333333333333
+<span>
 <s:submit method="execute" key="button.login" align="center" />
+</span>
 </h2>
+</span>
 </s:form>
+</span>
 </body>
 </html>
