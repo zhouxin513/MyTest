@@ -246,6 +246,8 @@ public class FileUploadToDbAction extends ActionSupport {
 				Pattern pat = Pattern.compile("<span id=\"(.*?)\".*>$");
 
 				String line = "";
+				
+				
 				int i = 0;
 				// ArrayList<JspConvertHistoryBean> convertHistoryBeans = new
 				// ArrayList<JspConvertHistoryBean>();
